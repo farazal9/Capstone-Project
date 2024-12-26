@@ -24,6 +24,8 @@ import { Box } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
 import InfluencersVideos from './Components/InfluencersVideos/InfluencersVideos.jsx';
 import Footer from './Components/Footer/Footer.jsx';
+import OurService from './Components/OurService/OurService.jsx';
+import BuyingReasons from './Components/BuyingReasons/BuyingReasons.jsx';
 // import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
 
 function App() {
@@ -107,7 +109,10 @@ function App() {
 
 
       <InfluencersVideos/>
+  
       {/* <SellingProducts/> */}
+      <BuyingReasons/>
+      <OurService/>
       <Footer/>
     </Router>
   </div>
