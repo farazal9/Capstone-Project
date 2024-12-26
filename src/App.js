@@ -23,7 +23,8 @@ import { Navigation } from 'swiper/modules';
 import { Box } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
 import InfluencersVideos from './Components/InfluencersVideos/InfluencersVideos.jsx';
-import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
+import Footer from './Components/Footer/Footer.jsx';
+// import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
 
 function App() {
   return (
@@ -106,7 +107,8 @@ function App() {
 
 
       <InfluencersVideos/>
-      <SellingProducts/>
+      {/* <SellingProducts/> */}
+      <Footer/>
     </Router>
   </div>
   );
