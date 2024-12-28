@@ -1,121 +1,69 @@
 import './App.css';
 import Header from "./Components/Header/Header.jsx";
 import Items from './Components/Items/Items.jsx';
-import slider1 from "./assests/slider-one.jpg";
-import slider2 from "./assests/slider-two.jpg";
-import slider3 from "./assests/slider-3.jpg";
-import slider4 from "./assests/slider-four.jpg";
-import slider5 from "./assests/slider-5.jpg";
-import slider6 from "./assests/pakistan-priceoye-slider-wuoul.jpg";
 import salebanner from "./assests/sale-campaign-banner-p8vzf.gif";
 import Products from "./Components/ProductsOne/Products.jsx";
-import ProductDetails from './Components/ProductsOne/ProductDetail.jsx';
+
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 // Import required modules
-import { Navigation } from 'swiper/modules';
+
 import { Box } from '@mui/material';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router components
 import InfluencersVideos from './Components/InfluencersVideos/InfluencersVideos.jsx';
 import Footer from './Components/Footer/Footer.jsx';
 import OurService from './Components/OurService/OurService.jsx';
 import BuyingReasons from './Components/BuyingReasons/BuyingReasons.jsx';
+import BrandsAndReviews from './Components/BrandsAndReviews/BrandsAndReviews.jsx';
+import Slider from './Components/Slider/Slider.jsx';
 // import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
 
 function App() {
+//   // Define the products array here
+//   const products = [
+//     { id: 1, name: 'Product 1', description: 'This is the description for Product 1.' },
+//     { id: 2, name: 'Product 2', description: 'This is the description for Product 2.' },
+//     { id: 3, name: 'Product 3', description: 'This is the description for Product 3.' },
+//     { id: 4, name: 'Product 4', description: 'This is the description for Product 4.' },
+//     { id: 5, name: 'Product 5', description: 'This is the description for Product 5.' },
+//     { id: 6, name: 'Product ', description: 'This is the description for Product 6.' },
+//     // Add more products as needed
+//   ];
+
   return (
-  <div style={{backgroundColor:"#F1F3F6"}}>
-      <Router >
-      <div>
-        {/* Header Component */}
-        <Header  />
+    <div style={{ backgroundColor: "#F1F3F6" }}>
+        <div>
+          {/* Header Component */}
+          <Header />
 
-        {/* Items Component */}
-        <Items  />
+          {/* Items Component */}
+          <Items />
 
-        {/* Swiper Component */}
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-          <SwiperSlide>
-            <img
-              src={slider1}
-              alt="Slide 1"
-              className="img-fluid d-block"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <img
-                src={slider2}
-                alt="Slide 2"
-                className="img-fluid d-block"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <img
-                src={slider3}
-                alt="Slide 3"
-                className="img-fluid d-block"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <img
-                src={slider4}
-                alt="Slide 4"
-                className="img-fluid d-block"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <img
-                src={slider5}
-                alt="Slide 5"
-                className="img-fluid d-block"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <img
-                src={slider6}
-                alt="Slide 6"
-                className="img-fluid d-block"
-              />
-            </div>
-          </SwiperSlide>
-        </Swiper>
+          <Slider />
 
-        {/* Sale Banner */}
-        <Box className="container mt-4">
-          <img className="img-fluid bg-transparent" src={salebanner} alt="Sale Banner" />
-        </Box>
+          {/* Sale Banner */}
+          <Box className="container mt-4">
+            <img className="img-fluid bg-transparent" src={salebanner} alt="Sale Banner" />
+          </Box>
 
-        {/* Routes Setup */}
-        <Routes>
-          <Route path="/" element={<Products />} /> {/* Main Products Page */}
-          <Route path="/product/:id" element={<ProductDetails />} /> {/* Product Details Page */}
-        </Routes>
-      </div>
+     <Products/>
+        
+        </div>
 
+        <InfluencersVideos />
 
-      <InfluencersVideos/>
-  
-      {/* <SellingProducts/> */}
-      <BuyingReasons/>
-      <OurService/>
-      <Footer/>
-    </Router>
-  </div>
+        {/* <SellingProducts/> */}
+        <BrandsAndReviews />
+        <BuyingReasons />
+        <OurService />
+        <Footer />
+    
+    </div>
   );
 }
 

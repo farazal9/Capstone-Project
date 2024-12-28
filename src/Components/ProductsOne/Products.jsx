@@ -1,7 +1,8 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
-import { useNavigate } from 'react-router-dom';
+
+
 
 const products = [
     {
@@ -157,7 +158,7 @@ const products = [
 
 
 const Products = () => {
-  const navigate = useNavigate(); // Initialize navigate function
+
 
   return (
   <div>
@@ -191,11 +192,13 @@ const Products = () => {
                 },
               }}
             >
+             
               {products.map((product) => (
                 <SwiperSlide key={product.id}>
+                
                   <div
-                    className="productBox position-relative d-flex flex-column align-items-start p-3 border rounded bg-white"
-                    onClick={() => navigate(`/product-details/${product.id}`)}
+                    className="productBox mb-3 position-relative d-flex flex-column align-items-start p-3 border rounded bg-white"
+                    onClick={() => (`/product-details/${product.id}`)}
                     style={{
                       cursor: "pointer",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -263,11 +266,84 @@ const Products = () => {
                       </div>
                     </a>
                   </div>
+
+
+                  <div
+                    className="productBox position-relative d-flex flex-column align-items-start p-3 border rounded bg-white"
+                    onClick={() => (`/product-details/${product.id}`)}
+                    style={{
+                      cursor: "pointer",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    {/* Sale Badge */}
+                    <img
+                      src="https://images.priceoye.pk/badges/priceoye-sale-20241212-w3sbv.png"
+                      alt="Sale Badge"
+                      className="position-absolute"
+                      style={{
+                        top: "10px",
+                        right: "10px",
+                        width: "90px",
+                        height: "70px",
+                      }}
+                    />
+                    <a
+                      href={product.link}
+                      className="text-decoration-none text-dark w-100"
+                      onClick={(e) => e.stopPropagation()} // Prevent navigating away
+                    >
+                      {/* Image */}
+                      <div className="text-center mb-3">
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          className="img-fluid"
+                          style={{ maxWidth: "120px", maxHeight: "120px" }}
+                        />
+                      </div>
+  
+                      {/* Rating */}
+                      <div className="user-rating-box mb-2">
+                        <div
+                          className="d-flex align-items-center justify-content-start bg-light p-2 rounded"
+                          style={{ backgroundColor: "#FBF7EB" }}
+                        >
+                          <img
+                            src="https://static.priceoye.pk/images/stars.svg"
+                            alt="Rating Star"
+                            width="10"
+                            height="10"
+                            className="me-1"
+                          />
+                          <span className="mx-1">{product.rating}</span>
+                          <span className="small">{product.reviews} Reviews</span>
+                        </div>
+                      </div>
+  
+                      {/* Details */}
+                      <div className="detail-box text-start">
+                        <div className="">{product.name}</div>
+                        <div className="price-box h5 mt-1 text-success">
+                          <sup>Rs </sup>
+                          {product.price}
+                        </div>
+                        <div className="price-diff d-flex justify-content-between align-items-center mt-1">
+                          <div className="text-danger text-decoration-line-through">
+                            <sup>Rs </sup>
+                            {product.retailPrice}
+                          </div>
+                          <p className="text-success mb-0">{product.discount}</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                 
                 </SwiperSlide>
-                
               ))}
               
             </Swiper>
+            
 
 
             
@@ -284,4 +360,4 @@ const Products = () => {
 };  
 
   
-  export default Products;
+  export default Products;

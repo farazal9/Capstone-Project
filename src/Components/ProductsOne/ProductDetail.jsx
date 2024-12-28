@@ -1,25 +1,26 @@
 import { useParams } from "react-router-dom";
-import Products from "./Products";
 
-const ProductDetails = () => {
-  const { id } = useParams(); // Get the product ID from the URL
+function ProductDetails() {
+  const { id } = useParams();
 
-  // Simulated product data (fetch or derive this dynamically)
-  const product = Products.find((item) => item.id === parseInt(id));
+  const products = [
+    { id: 1, name: "Product 1", description: "Description of Product 1" },
+    { id: 2, name: "Product 2", description: "Description of Product 2" },
+    { id: 3, name: "Product 3", description: "Description of Product 3" },
+  ];
 
-  if (!product) return <div>Product not found!</div>;
+  const product = products.find((p) => p.id === parseInt(id));
+
+  if (!product) {
+    return <h2>Product not found</h2>;
+  }
 
   return (
-    <div className="product-details">
-      <h2>{product.name}</h2>
-      <img src={product.imageUrl} alt={product.name} />
-      <p>Price: Rs {product.price}</p>
-      <p>Retail Price: Rs {product.retailPrice}</p>
-      <p>Discount: {product.discount}</p>
-      <p>Reviews: {product.reviews}</p>
-      <p>Description: {product.description}</p>
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
     </div>
   );
-};
+}
 
 export default ProductDetails;
