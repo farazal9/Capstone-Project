@@ -1,29 +1,45 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
-import { Button } from '@mui/material';
+import { Button, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import logo from '../../assests/logo.svg';
 import bar from "../../assests/bar.svg";
+import { useNavigate } from "react-router-dom";
 
-// Styled components
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#ffffff',
-  padding: '0 16px',
-  width: '100%',
-  maxWidth: '400px',
-  height: '40px',
-  display: 'flex',
-  alignItems: 'center',
-  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-}));
+
 
 export function PrimarySearchAppBar() {
+  const [loggedIn, setLoggedIn] = useState(false); // Replace this with actual auth state
+  const [anchorEl, setAnchorEl] = useState(null); // For dropdown menu
+  const [userName, setUserName] = useState(""); // User name state
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setLoggedIn(true);
+      setUserName(storedUser.name);  // User ka naam localStorage se set karna
+    }
+  }, []);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setUserName("");
+    localStorage.removeItem("user"); // User data ko localStorage se remove karna
+    window.location.reload();  // Page ko refresh karna
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ bgcolor: "#48AFFF" }} position="static">
@@ -42,45 +58,71 @@ export function PrimarySearchAppBar() {
           </Box>
 
           {/* Center Section: Search Bar */}
-          <Search>
+          <div className="d-none d-md-flex align-items-center shadow p-2 rounded bg-white" style={{ maxWidth: '400px', width: '100%' }}>
             <InputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               sx={{ flex: 1, ml: 1 }}
             />
             <MicIcon sx={{ color: "#48AFFF" }} />
-          </Search>
+          </div>
 
-          {/* Right Section: Buttons */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "white",
-                color: "#48AFFF",
-                border: "1px solid white",
-                '&:hover': {
-                  backgroundColor: "#48AFFF",
-                  color: "white",
-                },
-              }}
-            >
-              Log in
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                backgroundColor: "#48AFFF",
-                color: "white",
-                border: "1px solid white",
-                '&:hover': {
-                  backgroundColor: "white",
-                  color: "#48AFFF",
-                },
-              }}
-            >
-              Register
-            </Button>
+          {/* Right Section: Buttons or Profile */}
+          <Box sx={{ display: "flex", gap: 2 }}>
+            {!loggedIn ? (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "white",
+                    color: "#48AFFF",
+                    border: "1px solid white",
+                    "&:hover": {
+                      backgroundColor: "#48AFFF",
+                      color: "white",
+                    },
+                  }}
+                  onClick={() => navigate("/login")}
+                >
+                  Log in
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: "#48AFFF",
+                    color: "white",
+                    border: "1px solid white",
+                    "&:hover": {
+                      backgroundColor: "white",
+                      color: "#48AFFF",
+                    },
+                  }}
+                  onClick={() => navigate("/register")}
+                >
+                  Register
+                </Button>
+              </>
+            ) : (
+              <>
+                <IconButton onClick={handleMenuOpen}>
+                  <Avatar sx={{ bgcolor: "#ffffff", color: "#48AFFF" }}>
+                    {userName.charAt(0)} {/* User ke naam ka pehla letter */}
+                  </Avatar>
+                  <span className='text-white fs-6 ms-1'>{userName}</span>
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={() => { handleMenuClose(); navigate("/profile"); }}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

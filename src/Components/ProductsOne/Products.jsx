@@ -160,248 +160,148 @@ const products2 = [
 const Products = () => {
   const navigate = useNavigate();
 
+  const renderProductCard = (product) => (
+    <SwiperSlide key={product.id}>
+      <Box
+        sx={{ cursor: "pointer" }}
+        onClick={() => navigate(`/product-details/${product.id}`)}
+        className="shadow-sm rounded p-3 bg-white position-relative"
+      >
+        {/* Sale Badge */}
+        <Box
+          component="img"
+          src="https://images.priceoye.pk/badges/priceoye-sale-20241212-w3sbv.png"
+          alt="Sale Badge"
+          className="position-absolute"
+          style={{
+            top: "10px",
+            right: "10px",
+            width: "90px",
+            height: "70px",
+          }}
+        />
+
+        {/* Product Image */}
+        <Box className="text-center mb-3 d-flex justify-content-center w-100">
+          <Box
+            component="img"
+            src={product.imageUrl}
+            alt={product.name}
+            className="img-fluid"
+            style={{
+              maxWidth: "120px",
+              maxHeight: "120px",
+            }}
+          />
+        </Box>
+
+        {/* Rating */}
+        <Box
+          className="mb-2 d-flex align-items-center bg-light p-2 rounded"
+          style={{ backgroundColor: "#FBF7EB" }}
+        >
+          <Box
+            component="img"
+            src="https://static.priceoye.pk/images/stars.svg"
+            alt="Rating Star"
+            className="me-1"
+            style={{
+              width: "10px",
+              height: "10px",
+            }}
+          />
+          <Typography variant="body2" className="mx-1">
+            {product.rating}
+          </Typography>
+          <Typography variant="caption" className="text-muted">
+            {product.reviews} Reviews
+          </Typography>
+        </Box>
+
+        {/* Product Details */}
+        <Box className="w-100">
+          <Typography variant="body1" className="fw-bold mb-1">
+            {product.name}
+          </Typography>
+          <Typography variant="h6" className="text-success fw-bold">
+            Rs {product.price}
+          </Typography>
+          <Box className="d-flex justify-content-between w-100 mt-1">
+            <Typography
+              variant="body2"
+              className="text-danger text-decoration-line-through"
+            >
+              Rs {product.retailPrice}
+            </Typography>
+            <Typography variant="body2" className="text-success">
+              {product.discount}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </SwiperSlide>
+  );
+
   return (
     <div>
-
       <div className="w-100 mt-5" style={{ backgroundColor: "#F94F9A" }}>
         <div className="container">
-          <div className="">
-            <div className="latest-product-box p-4 rounded">
-              {/* Header Section */}
-              <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
-                <h1 className="h4 text-white">Latest Wireless Earbuds</h1>
-                <span className="btn btn-light">View All</span>
-              </div>
-
-              {/* Swiper Section */}
-              <Swiper className='pt-5'
-                slidesPerView={4} // Default for lg screens
-                spaceBetween={15}
-                breakpoints={{
-                  1200: {
-                    slidesPerView: 4, // Large screens (lg)
-                    spaceBetween: 15,
-                  },
-                  768: {
-                    slidesPerView: 2, // Medium screens (md)
-                    spaceBetween: 15,
-                  },
-                  336: {
-                    slidesPerView: 1, // Small screens (sm)
-                    spaceBetween: 10,
-                  },
-                }}
-              >
-                {products1.map((product) => (
-                  <SwiperSlide key={product.id}>
-                    <Box 
-                    sx={{cursor:"pointer"}}
-                      onClick={() => navigate(`/product-details/${product.id}`)}
-                      className="shadow-sm rounded p-3 bg-white position-relative"
-                    >
-                      {/* Sale Badge */}
-                      <Box
-                        component="img"
-                        src="https://images.priceoye.pk/badges/priceoye-sale-20241212-w3sbv.png"
-                        alt="Sale Badge"
-                        className="position-absolute"
-                        style={{
-                          top: "10px",
-                          right: "10px",
-                          width: "90px",
-                          height: "70px",
-                        }}
-                      />
-
-                      {/* Product Image */}
-                      <Box
-                        className="text-center mb-3 d-flex justify-content-center w-100"
-                      >
-                        <Box
-                          component="img"
-                          src={product.imageUrl}
-                          alt={product.name}
-                          className="img-fluid"
-                          style={{
-                            maxWidth: "120px",
-                            maxHeight: "120px",
-                          }}
-                        />
-                      </Box>
-
-                      {/* Rating */}
-                      <Box
-                        className="mb-2 d-flex align-items-center bg-light p-2 rounded"
-                        style={{ backgroundColor: "#FBF7EB" }}
-                      >
-                        <Box
-                          component="img"
-                          src="https://static.priceoye.pk/images/stars.svg"
-                          alt="Rating Star"
-                          className="me-1"
-                          style={{
-                            width: "10px",
-                            height: "10px",
-                          }}
-                        />
-                        <Typography variant="body2" className="mx-1">
-                          {product.rating}
-                        </Typography>
-                        <Typography variant="caption" className="text-muted">
-                          {product.reviews} Reviews
-                        </Typography>
-                      </Box>
-
-                      {/* Product Details */}
-                      <Box className="w-100">
-                        <Typography
-                          variant="body1"
-                          className="fw-bold mb-1"
-                        >
-                          {product.name}
-                        </Typography>
-                        <Typography variant="h6" className="text-success fw-bold">
-                          Rs {product.price}
-                        </Typography>
-                        <Box className="d-flex justify-content-between w-100 mt-1">
-                          <Typography
-                            variant="body2"
-                            className="text-danger text-decoration-line-through"
-                          >
-                            Rs {product.retailPrice}
-                          </Typography>
-                          <Typography variant="body2" className="text-success">
-                            {product.discount}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </SwiperSlide>
-                ))}
-
-
-
-              </Swiper>
-
-              {/* Swiper Section */}
-              <Swiper className='pt-5'
-                slidesPerView={4} // Default for lg screens
-                spaceBetween={15}
-                breakpoints={{
-                  1200: {
-                    slidesPerView: 4, // Large screens (lg)
-                    spaceBetween: 15,
-                  },
-                  768: {
-                    slidesPerView: 2, // Medium screens (md)
-                    spaceBetween: 15,
-                  },
-                  336: {
-                    slidesPerView: 1, // Small screens (sm)
-                    spaceBetween: 10,
-                  },
-                }}
-              >
-              {products2.map((product) => (
-                  <SwiperSlide key={product.id}>
-                    <Box 
-                    sx={{cursor:"pointer"}}
-                      onClick={() => navigate(`/product-details/${product.id}`)}
-                      className="shadow-sm rounded p-3 bg-white position-relative"
-                    >
-                      {/* Sale Badge */}
-                      <Box
-                        component="img"
-                        src="https://images.priceoye.pk/badges/priceoye-sale-20241212-w3sbv.png"
-                        alt="Sale Badge"
-                        className="position-absolute"
-                        style={{
-                          top: "10px",
-                          right: "10px",
-                          width: "90px",
-                          height: "70px",
-                        }}
-                      />
-
-                      {/* Product Image */}
-                      <Box
-                        className="text-center mb-3 d-flex justify-content-center w-100"
-                      >
-                        <Box
-                          component="img"
-                          src={product.imageUrl}
-                          alt={product.name}
-                          className="img-fluid"
-                          style={{
-                            maxWidth: "120px",
-                            maxHeight: "120px",
-                          }}
-                        />
-                      </Box>
-
-                      {/* Rating */}
-                      <Box
-                        className="mb-2 d-flex align-items-center bg-light p-2 rounded"
-                        style={{ backgroundColor: "#FBF7EB" }}
-                      >
-                        <Box
-                          component="img"
-                          src="https://static.priceoye.pk/images/stars.svg"
-                          alt="Rating Star"
-                          className="me-1"
-                          style={{
-                            width: "10px",
-                            height: "10px",
-                          }}
-                        />
-                        <Typography variant="body2" className="mx-1">
-                          {product.rating}
-                        </Typography>
-                        <Typography variant="caption" className="text-muted">
-                          {product.reviews} Reviews
-                        </Typography>
-                      </Box>
-
-                      {/* Product Details */}
-                      <Box className="w-100">
-                        <Typography
-                          variant="body1"
-                          className="fw-bold mb-1"
-                        >
-                          {product.name}
-                        </Typography>
-                        <Typography variant="h6" className="text-success fw-bold">
-                          Rs {product.price}
-                        </Typography>
-                        <Box className="d-flex justify-content-between w-100 mt-1">
-                          <Typography
-                            variant="body2"
-                            className="text-danger text-decoration-line-through"
-                          >
-                            Rs {product.retailPrice}
-                          </Typography>
-                          <Typography variant="body2" className="text-success">
-                            {product.discount}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </SwiperSlide>
-                ))}
-
-              </Swiper>
-
-
+          <div className="latest-product-box p-4 rounded">
+            {/* Header Section */}
+            <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
+              <h1 className="h4 text-white">Latest Wireless Earbuds</h1>
+              <span className="btn btn-light">View All</span>
             </div>
+
+            {/* Swiper Section */}
+            <Swiper
+              className="pt-5"
+              slidesPerView={4} // Default for lg screens
+              spaceBetween={15}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 4,
+                  spaceBetween: 15,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 15,
+                },
+                336: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+              }}
+            >
+              {products1.map(renderProductCard)}
+            </Swiper>
+
+            <Swiper
+              className="pt-5"
+              slidesPerView={4} // Default for lg screens
+              spaceBetween={15}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 4,
+                  spaceBetween: 15,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 15,
+                },
+                336: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+              }}
+            >
+              {products2.map(renderProductCard)}
+            </Swiper>
           </div>
         </div>
       </div>
-
-
-
     </div>
   );
-
 };
 
 
