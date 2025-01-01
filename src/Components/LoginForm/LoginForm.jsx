@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState(""); 
-  const [password, setPassword] = useState(""); 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("user")); 
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (storedUser && storedUser.email === email && storedUser.password === password) {
-      alert("Login successful!");
-      window.location.replace("/");  
-      navigate("/");  
+      toast.success("Login successful!");
+      window.location.replace("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
-      alert("Invalid email or password!");
+      toast.error("Invalid email or password!");
     }
   };
 
   return (
+
     <Box
       sx={{
         maxWidth: 400,
@@ -63,6 +68,8 @@ const LoginForm = () => {
           Log in
         </Button>
       </form>
+      <ToastContainer />
+
     </Box>
   );
 };

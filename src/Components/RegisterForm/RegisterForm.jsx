@@ -2,7 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ const RegisterForm = () => {
 
   const handleRegister = (data) => {
     localStorage.setItem("user", JSON.stringify(data));  // User data save karna
-    alert("Registration successful!");
-    navigate("/login");  // Login page pe redirect karna
+    toast.success("Registration successful!");
+    setTimeout(() => {
+      navigate("/login"); 
+    }, 2000);  
   };
 
   return (
@@ -67,6 +70,7 @@ const RegisterForm = () => {
           Register
         </Button>
       </form>
+      <ToastContainer/>
     </Box>
   );
 };

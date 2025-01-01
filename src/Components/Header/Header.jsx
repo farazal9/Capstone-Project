@@ -69,61 +69,61 @@ export function PrimarySearchAppBar() {
 
           {/* Right Section: Buttons or Profile */}
           <Box sx={{ display: "flex", gap: 2 }}>
-            {!loggedIn ? (
-              <>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "white",
-                    color: "#48AFFF",
-                    border: "1px solid white",
-                    "&:hover": {
-                      backgroundColor: "#48AFFF",
-                      color: "white",
-                    },
-                  }}
-                  onClick={() => navigate("/login")}
-                >
-                  Log in
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: "#48AFFF",
-                    color: "white",
-                    border: "1px solid white",
-                    "&:hover": {
-                      backgroundColor: "white",
-                      color: "#48AFFF",
-                    },
-                  }}
-                  onClick={() => navigate("/register")}
-                >
-                  Register
-                </Button>
-              </>
-            ) : (
-              <>
-                <IconButton onClick={handleMenuOpen}>
-                  <Avatar sx={{ bgcolor: "#ffffff", color: "#48AFFF" }}>
-                    {userName.charAt(0)} {/* User ke naam ka pehla letter */}
-                  </Avatar>
-                  <span className='text-white fs-6 ms-1'>{userName}</span>
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={() => { handleMenuClose(); navigate("/profile"); }}>
-                    Profile
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
+  {!loggedIn ? (
+    <>
+      <Button
+        variant="contained"
+        sx={{
+          backgroundColor: "white",
+          color: "#48AFFF",
+          border: "1px solid white",
+          "&:hover": {
+            backgroundColor: "#48AFFF",
+            color: "white",
+          },
+        }}
+        onClick={() => navigate("/login")}
+      >
+        Log in
+      </Button>
+      <Button
+        variant="outlined"
+        sx={{
+          backgroundColor: "#48AFFF",
+          color: "white",
+          border: "1px solid white",
+          "&:hover": {
+            backgroundColor: "white",
+            color: "#48AFFF",
+          },
+        }}
+        onClick={() => navigate("/register")}
+      >
+        Register
+      </Button>
+    </>
+  ) : (
+    <>
+      <IconButton onClick={handleMenuOpen}>
+        <Avatar sx={{ bgcolor: "#ffffff", color: "#48AFFF" }}>
+          {userName ? userName.charAt(0) : "?"}
+        </Avatar>
+        <span className='text-white fs-6 ms-1'>{userName || "Guest"}</span>
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={() => { handleMenuClose(); navigate("/profile"); }}>
+          Profile
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+    </>
+  )}
+</Box>
 
-              </>
-            )}
-          </Box>
         </Toolbar>
       </AppBar>
     </Box>

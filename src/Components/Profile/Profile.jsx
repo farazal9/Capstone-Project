@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, Avatar, TextField, Button } from "@mui/material";
 import { Person } from "@mui/icons-material";
 
+
 const Profile = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(storedUser);

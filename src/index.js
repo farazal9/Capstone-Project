@@ -11,6 +11,8 @@ import Layout from './Components/Layout/Layout';
 import LoginForm from './Components/LoginForm/LoginForm';
 import RegisterForm from './Components/RegisterForm/RegisterForm';
 import Profile from './Components/Profile/Profile';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 ReactDOM.render(
     <Router>
