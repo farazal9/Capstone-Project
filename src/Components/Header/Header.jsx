@@ -7,8 +7,15 @@ import { Button, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import logo from '../../assests/logo.svg';
 import bar from "../../assests/bar.svg";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
+// drawer imports
+
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BookIcon from '@mui/icons-material/Book';
 
 
 export function PrimarySearchAppBar() {
@@ -22,7 +29,7 @@ export function PrimarySearchAppBar() {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       setLoggedIn(true);
-      setUserName(storedUser.name);  // User ka naam localStorage se set karna
+      setUserName(storedUser.name);  
     }
   }, []);
 
@@ -40,6 +47,84 @@ export function PrimarySearchAppBar() {
     localStorage.removeItem("user"); // User data ko localStorage se remove karna
     window.location.reload();  // Page ko refresh karna
   };
+
+  // drawer code
+
+  
+  const handleTrackOrder = () => {
+    navigate("/track-order"); // Replace with the actual route for Track my Order
+  };
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const DrawerList = (
+    <Box sx={{ width: 350 }} role="presentation" onClick={toggleDrawer(false)}>
+   <List
+      sx={{
+        bgcolor: "#48AFFF",
+        px: 5,
+        py: 5,
+        p: 3,
+      }}
+    >
+      {/* Logo */}
+      <img
+        src={logo}
+        alt="Logo"
+        style={{ height: "25px", cursor: "pointer" }}
+        onClick={() => navigate("/")} // Navigate to home page
+      />
+
+      {/* Login Button */}
+      <Button
+        className="d-none d-md-block"
+        variant="contained"
+        sx={{
+          mt: 2, // Top margin
+          backgroundColor: "white",
+          color: "#48AFFF",
+          border: "1px solid white",
+          "&:hover": {
+            backgroundColor: "#48AFFF",
+            color: "white",
+          },
+        }}
+        onClick={() => navigate("/login")}
+      >
+        Log in
+      </Button>
+
+      {/* Track My Order */}
+      <Box
+        className="text-white"
+        sx={{ display: "flex", alignItems: "center", pt: 2, cursor: "pointer" }}
+        onClick={handleTrackOrder}
+      >
+        <LocationOnIcon sx={{ mr: 1 }} />
+        Track my order
+      </Box>
+
+      {/* Launch a Complaint */}
+      <Box
+        className="text-white"
+        sx={{ display: "flex", alignItems: "center", mt: 2 }}
+        onClick={() => navigate("/launch-complaint")} // Replace with actual route
+      >
+        <BookIcon sx={{ mr: 1 }} />
+        Launch a Complaint
+      </Box>
+    </List>
+      <Divider />
+      <List>
+
+      </List>
+    </Box>
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ bgcolor: "#48AFFF" }} position="static">
@@ -53,8 +138,13 @@ export function PrimarySearchAppBar() {
         >
           {/* Left Section: Logo and Menu Icon */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <img src={bar} alt="Menu" style={{ height: "18px" }} />
+            <Button onClick={toggleDrawer(true)}> <img src={bar} alt="Menu" style={{ height: "18px" }} /></Button>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              {DrawerList}
+            </Drawer>
+
             <img src={logo} alt="Logo" style={{ height: "25px" }} />
+
           </Box>
 
           {/* Center Section: Search Bar */}
@@ -72,7 +162,7 @@ export function PrimarySearchAppBar() {
             {!loggedIn ? (
               <>
                 <Button
-                className='d-none d-md-block'
+                  className='d-none d-md-block'
                   variant="contained"
                   sx={{
                     backgroundColor: "white",

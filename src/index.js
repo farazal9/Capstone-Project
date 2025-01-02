@@ -13,6 +13,7 @@ import RegisterForm from './Components/RegisterForm/RegisterForm';
 import Profile from './Components/Profile/Profile';
 import 'react-toastify/dist/ReactToastify.css';
 import Delivery from './Components/Delivery/Delivery';
+import TrackOrder from './Components/Trackorder/TrackOrder';
 
 
 ReactDOM.render(
@@ -27,6 +28,8 @@ ReactDOM.render(
 
         <Route path="/" element={<ProductDetails />} />
         <Route path="/delivery" element={<Delivery />} />
+           {/* Route for TrackOrder Component */}
+           <Route path="/track-order" element={<TrackOrder />} />
             </Routes>
         </Layout>
     </Router>,
