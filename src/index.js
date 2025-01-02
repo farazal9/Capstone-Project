@@ -12,6 +12,7 @@ import LoginForm from './Components/LoginForm/LoginForm';
 import RegisterForm from './Components/RegisterForm/RegisterForm';
 import Profile from './Components/Profile/Profile';
 import 'react-toastify/dist/ReactToastify.css';
+import Delivery from './Components/Delivery/Delivery';
 
 
 ReactDOM.render(
@@ -23,6 +24,9 @@ ReactDOM.render(
                 <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/profile" element={<Profile />} />
+
+        <Route path="/" element={<ProductDetails />} />
+        <Route path="/delivery" element={<Delivery />} />
             </Routes>
         </Layout>
     </Router>,

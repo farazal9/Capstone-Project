@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const products1 = [
   {
@@ -153,6 +153,8 @@ const products2 = [
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  
   const product = [...products1, ...products2].find((p) => p.id === parseInt(id));
 
   if (!product) {
@@ -162,6 +164,7 @@ const ProductDetails = () => {
       </div>
     );
   }
+
 
   return (
     <div className="container mt-5">
@@ -192,7 +195,7 @@ const ProductDetails = () => {
           <div className="mt-3">
             <span
               className="badge bg-warning text-dark"
-              sx={{ fontSize: "1rem", padding: "0.6em" }}
+              style={{ fontSize: "1rem", padding: "0.6em" }}
             >
               ⭐ {product.rating}
             </span>
@@ -221,6 +224,7 @@ const ProductDetails = () => {
                 e.target.style.transform = "scale(1)";
                 e.target.style.boxShadow = "none";
               }}
+              onClick={() => navigate("/delivery")}
             >
               Add to Cart
             </button>
@@ -230,5 +234,7 @@ const ProductDetails = () => {
     </div>
   );
 };
+
+
 
 export default ProductDetails;
