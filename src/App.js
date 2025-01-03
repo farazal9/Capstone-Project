@@ -20,6 +20,9 @@ import OurService from './Components/OurService/OurService.jsx';
 import BuyingReasons from './Components/BuyingReasons/BuyingReasons.jsx';
 import BrandsAndReviews from './Components/BrandsAndReviews/BrandsAndReviews.jsx';
 import Slider from './Components/Slider/Slider.jsx';
+import Products2 from './Components/productTwo/ProductTwo.jsx';
+import Products3 from './Components/productsThree/ProductsThree.jsx';
+import Products4 from './Components/productsFour/productsFour.jsx';
 
 
 function App() {
@@ -46,8 +49,12 @@ function App() {
         <InfluencersVideos />
 
         {/* <SellingProducts/> */}
+        <Products2/>
+
+        <Products3/>
         <BrandsAndReviews />
         <BuyingReasons />
+        <Products4/>
         <OurService />
         <Footer />
     

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addOrder } from "../../Slices/orderSlice"; // Update with your path
+import { useNavigate } from "react-router-dom"; // Import for navigation
 import { Stepper, Step, StepLabel, Button, TextField, Radio, FormControlLabel } from "@mui/material";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the toast styles
+
 
 const steps = ["OTP Verification", "Contact Info", "Delivery", "Payment"];
 
@@ -12,17 +18,24 @@ const Delivery = () => {
     deliveryMethod: "standard_shipping",
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleNext = () => {
-    if (activeStep < steps.length) {
+    if (activeStep < steps.length - 1) {
       setActiveStep((prevStep) => prevStep + 1);
+    } else {
+      // Save order details on Finish
+      dispatch(addOrder(formData));
+      toast.success("Order placed successfully!", { position: "top-right" });
+    setTimeout(() => {
+      navigate("/track-order"); // Navigate to track order page
+    }, 2000);
     }
   };
 
   const handleBack = () => {
-    if (activeStep > 0) {
-      setActiveStep((prevStep) => prevStep - 1);
-    }
+    if (activeStep > 0) setActiveStep((prevStep) => prevStep - 1);
   };
 
   const handleChange = (e) => {
@@ -34,13 +47,7 @@ const Delivery = () => {
     switch (step) {
       case 0:
         return (
-          <TextField
-            label="Enter OTP"
-            variant="outlined"
-            fullWidth
-            className="mb-3"
-            name="otp"
-          />
+          <TextField label="Enter OTP" variant="outlined" fullWidth name="otp" className="mb-3" />
         );
       case 1:
         return (
@@ -49,19 +56,19 @@ const Delivery = () => {
               label="Full Name"
               variant="outlined"
               fullWidth
-              className="mb-3"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
+              className="mb-3"
             />
             <TextField
               label="Email"
               variant="outlined"
               fullWidth
-              className="mb-3"
               name="email"
               value={formData.email}
               onChange={handleChange}
+              className="mb-3"
             />
           </>
         );
@@ -72,10 +79,10 @@ const Delivery = () => {
               label="Address"
               variant="outlined"
               fullWidth
-              className="mb-3"
               name="address"
               value={formData.address}
               onChange={handleChange}
+              className="mb-3"
             />
             <div className="mb-3">
               <FormControlLabel
@@ -104,11 +111,7 @@ const Delivery = () => {
           </>
         );
       case 3:
-        return (
-          <h4 className="text-success">
-            Please proceed to payment to complete your order.
-          </h4>
-        );
+        return <h4 className="text-success">Please proceed to payment to complete your order.</h4>;
       default:
         return <h4>Unknown step</h4>;
     }
@@ -116,33 +119,19 @@ const Delivery = () => {
 
   return (
     <div className="container mt-5">
-      {/* Stepper */}
       <Stepper activeStep={activeStep} alternativeLabel className="mb-5">
         {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>
-              <span
-                className={`p5 ${activeStep >= index ? "text-primary" : "text-muted"}`}
-              >
-                {label}
-              </span>
-            </StepLabel>
+          <Step key={index}>
+            <StepLabel>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-
-      {/* Step Content */}
       <div className="card p-4">
         {activeStep < steps.length ? (
           <>
-            <h4 className="mb-4">{steps[activeStep]}</h4>
             {renderStepContent(activeStep)}
             <div className="d-flex justify-content-between">
-              <Button
-                variant="outlined"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
+              <Button variant="outlined" onClick={handleBack} disabled={activeStep === 0}>
                 Back
               </Button>
               <Button
@@ -158,8 +147,7 @@ const Delivery = () => {
           <h3>All steps completed! Thank you for your order.</h3>
         )}
       </div>
-
-   
+      <ToastContainer />
     </div>
   );
 };
