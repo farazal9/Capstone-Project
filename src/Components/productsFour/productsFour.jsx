@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
 
@@ -155,8 +155,8 @@ const products8 = [
     imageUrl: "https://images.priceoye.pk/kemei-km-702b-hair-clipper-pakistan-priceoye-qw191-270x270.webp",
     description: "Advanced hair clipper with precision trimming and efficient performance."
   },
-  ];
-  
+];
+
 
 
 const Products4 = () => {
@@ -251,26 +251,29 @@ const Products4 = () => {
           <div className="latest-product-box p-4 rounded">
             {/* Header Section */}
             <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
-              <h1 className="h4 text-white">Latest Wireless Earbuds</h1>
+              <h1 className="h5 text-white">Shaver</h1>
               <span className="btn btn-light">View All</span>
             </div>
-
             {/* Swiper Section */}
             <Swiper
               className="pt-5"
-              slidesPerView={4} // Default for lg screens
+              slidesPerView={4} // Default for large screens
               spaceBetween={15}
               breakpoints={{
                 1200: {
-                  slidesPerView: 4,
+                  slidesPerView: 4, // Large screens (>= 1200px)
                   spaceBetween: 15,
                 },
                 768: {
-                  slidesPerView: 2,
+                  slidesPerView: 2, // Medium screens (768px to <1200px)
                   spaceBetween: 15,
                 },
-                336: {
-                  slidesPerView: 1,
+                576: {
+                  slidesPerView: 1, // Small screens (576px to <768px)
+                  spaceBetween: 15,
+                },
+                0: {
+                  slidesPerView: 1, // Extra small screens (<576px)
                   spaceBetween: 10,
                 },
               }}
@@ -278,21 +281,26 @@ const Products4 = () => {
               {products7.map(renderProductCard)}
             </Swiper>
 
+            {/* Swiper Section */}
             <Swiper
               className="pt-5"
-              slidesPerView={4} // Default for lg screens
+              slidesPerView={4} // Default for large screens
               spaceBetween={15}
               breakpoints={{
                 1200: {
-                  slidesPerView: 4,
+                  slidesPerView: 4, // Large screens (>= 1200px)
                   spaceBetween: 15,
                 },
                 768: {
-                  slidesPerView: 2,
+                  slidesPerView: 2, // Medium screens (768px to <1200px)
                   spaceBetween: 15,
                 },
-                336: {
-                  slidesPerView: 1,
+                576: {
+                  slidesPerView: 1, // Small screens (576px to <768px)
+                  spaceBetween: 15,
+                },
+                0: {
+                  slidesPerView: 1, // Extra small screens (<576px)
                   spaceBetween: 10,
                 },
               }}

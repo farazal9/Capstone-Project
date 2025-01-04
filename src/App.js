@@ -23,6 +23,7 @@ import Slider from './Components/Slider/Slider.jsx';
 import Products2 from './Components/productTwo/ProductTwo.jsx';
 import Products3 from './Components/productsThree/ProductsThree.jsx';
 import Products4 from './Components/productsFour/productsFour.jsx';
+import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
 
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
 
         <InfluencersVideos />
 
-        {/* <SellingProducts/> */}
+        <SellingProducts/>
         <Products2/>
 
         <Products3/>

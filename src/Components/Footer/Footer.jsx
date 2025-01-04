@@ -1,5 +1,3 @@
-// 
-
 import React from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import logo from "../../assests/logo.svg";
@@ -16,28 +14,21 @@ const Footer = () => {
                 padding: "40px 20px",
             }}
         >
-            {/* Secondary Footer */}
+            {/* Footer Content */}
             <Box className="container-lg">
                 <Grid container spacing={3}>
                     {/* Column 1 */}
                     <Grid item xs={12} sm={4}>
-                        <Box>
-                            <img
-                                className="d-block mb-3"
-                                alt="Logo"
-                                src={logo}
-                                style={{ width: "150px" }}
-                            />
-                            <ul className="list-unstyled" style={{ padding: 0, margin: 0 }}>
-                                {["About Us", "FAQs", "Contact Us", "Careers", "Blog", "Terms & Conditions"].map(
-                                    (item, index) => (
-                                        <li key={index} style={{ marginBottom: "8px" }}>
-                                            <Typography variant="body2">{item}</Typography>
-                                        </li>
-                                    )
-                                )}
-                            </ul>
-                        </Box>
+                        <img
+                            alt="Logo"
+                            src={logo}
+                            style={{ width: "150px", marginBottom: "16px" }}
+                        />
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>About Us</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>FAQs</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>Contact Us</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>Careers</Typography>
+                        <Typography variant="body2">Blog</Typography>
                     </Grid>
 
                     {/* Column 2 */}
@@ -45,41 +36,34 @@ const Footer = () => {
                         <Typography variant="h6" sx={{ marginBottom: "16px" }}>
                             Customer Service
                         </Typography>
-                        <ul className="list-unstyled" style={{ padding: 0, margin: 0 }}>
-                            {["Help Center", "Privacy Policy", "Installments Plan", "E-Warranty Activation", "Sell"].map(
-                                (item, index) => (
-                                    <li key={index} style={{ marginBottom: "8px" }}>
-                                        <Typography variant="body2">{item}</Typography>
-                                    </li>
-                                )
-                            )}
-                        </ul>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>Help Center</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>Privacy Policy</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>Installments Plan</Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>E-Warranty Activation</Typography>
+                        <Typography variant="body2">Sell</Typography>
                     </Grid>
 
                     {/* Column 3 */}
                     <Grid item xs={12} sm={4}>
                         <Typography variant="h6" sx={{ marginBottom: "16px" }}>
-                            Secure Payments Methods
+                            Secure Payment Methods
                         </Typography>
                         <img
-                            className="img-fluid"
                             src={f1}
-                            alt=""
-                            style={{ width: "100%", maxWidth: "200px" }}
+                            alt="Secure Payments"
+                            style={{ width: "100%", maxWidth: "200px", marginBottom: "16px" }}
                         />
-                        <Box sx={{ marginTop: "16px" }}>
-                            <img
-                                className="img-fluid"
-                                src={playstore}
-                                alt=""
-                                style={{ width: "100px" }}
-                            />
-                        </Box>
+                        <br />
+                        <img
+                            src={playstore}
+                            alt="Google Play Store"
+                            style={{ width: "100px" }}
+                        />
                     </Grid>
                 </Grid>
             </Box>
 
-            {/* Primary Footer */}
+            {/* Footer Bottom */}
             <Box
                 sx={{
                     marginTop: "40px",

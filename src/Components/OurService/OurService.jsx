@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import React from "react";
+import { Box, Grid, Typography } from "@mui/material";
 import service1 from "../../assests/approved-feature.svg";
 import service2 from "../../assests/warranty-feature.svg";
 import service3 from "../../assests/video-shooting-camera.svg";
@@ -34,18 +34,49 @@ const OurService = () => {
       <Grid container spacing={3}>
         {services.map((service, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
-            <Box className="services-info" textAlign="center">
+            <Box
+              className="services-info"
+              textAlign="center"
+              sx={{
+                padding: "1rem",
+                border: "1px solid #f0f0f0",
+                borderRadius: "8px",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-5px)",
+                  boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
+                },
+              }}
+            >
               <img
                 src={service.img}
                 alt={service.title}
                 className="img-fluid"
-                style={{ width: "70px", height: "70px" }}
+                style={{
+                  width: "70px",
+                  height: "70px",
+                }}
               />
               <Box className="services-detail" mt={2}>
-                <Typography variant="h6" className="services-text">
+                <Typography
+                  variant="h6"
+                  className="services-text"
+                  sx={{
+                    fontSize: { xs: "1rem", sm: "1.2rem" },
+                    color: "#333",
+                    fontWeight: "600",
+                  }}
+                >
                   {service.title}
                 </Typography>
-                <Typography variant="body2" className="services-text1">
+                <Typography
+                  variant="body2"
+                  className="services-text1"
+                  sx={{
+                    fontSize: { xs: "0.8rem", sm: "1rem" },
+                    color: "#555",
+                  }}
+                >
                   {service.description}
                 </Typography>
               </Box>

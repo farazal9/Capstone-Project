@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Typography, Container } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,13 +11,10 @@ import iv2 from "../../videos/iv-2.mp4";
 import iv3 from "../../videos/iv-3.mp4";
 import iv4 from "../../videos/iv-4.mp4";
 import iv5 from "../../videos/iv-5.mp4";
-// import iv1 from "../../videos/iv-1.mp4";
-// import iv2 from "../../videos/iv-1.mp4";
 import iv8 from "../../videos/iv-8.mp4";
 import iv9 from "../../videos/iv-9.mp4";
 import iv10 from "../../videos/iv-10.mp4";
 
-// import images 
 import productImage from "../../assests/redmi-img.jpeg";
 import productImage2 from "../../assests/iv2-img.jpg";
 import productImage3 from "../../assests/iv-img-3.jpg";
@@ -45,24 +41,31 @@ const InfluencersVideos = () => {
   ];
 
   return (
-    <Container className="mt-5">
-<Box className="text-center my-5">
-<Typography  variant="h5">Loved and Recommended</Typography>
-<Typography variant="h6">Influencers talk about priceoye as a trusted brand</Typography>
-</Box>
+    <Container  className="mt-5"   
+    sx={{
+      overflowX: "hidden", // Extra horizontal scrolling remove karega
+      padding: { xs: "0", sm: "0 15px" }, // Mobile-friendly spacing
+      marginBottom: "50px", 
+    }}>
+      <Box className="text-center my-5">
+        <Typography variant="h5">Loved and Recommended</Typography>
+        <Typography variant="h6">Influencers talk about priceoye as a trusted brand</Typography>
+      </Box>
+
       <Swiper
-        slidesPerView={4} // Default slides for larger screens
+        slidesPerView={4} // Default for large screens
         grid={{ rows: 1 }}
         spaceBetween={20}
         pagination={{ clickable: true }}
         modules={[Grid, Pagination]}
         className="mySwiper"
         breakpoints={{
-          320: { slidesPerView: 1, spaceBetween: 10 }, // Mobile (small screens)
-          768: { slidesPerView: 3, spaceBetween: 15 }, // Tablets
-          1024: { slidesPerView: 4, spaceBetween: 20 }, // Laptops and desktops
+          0: { slidesPerView: 1, spaceBetween: 10 }, // Extra small screens (tiny mobiles)
+          576: { slidesPerView: 1, spaceBetween: 15 }, // Small screens
+          768: { slidesPerView: 2, spaceBetween: 15 }, // Medium screens (Tablets)
+          1024: { slidesPerView: 3, spaceBetween: 20 }, // Large screens (Laptops)
+          1200: { slidesPerView: 4, spaceBetween: 20 }, // Extra large screens (Desktops)
         }}
-  
       >
         {videoCards.map((card, index) => (
           <SwiperSlide key={index}>
@@ -75,17 +78,21 @@ const InfluencersVideos = () => {
                 backgroundColor: "#F1F3F6",
                 boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                 position: "relative",
-                marginBottom: "20px",
+                marginBottom: "30px", 
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "auto", 
+                marginRight: "auto",
               }}
             >
-              <Box sx={{ height: "150px", position: "relative" }}>
+              <Box sx={{ height: "160px", position: "relative" }}>
                 <video
                   autoPlay
                   muted
                   loop
                   style={{
                     width: "100%",
-                    height: "160%",
+                    height: "100%",
                     objectFit: "cover",
                   }}
                 >
@@ -93,10 +100,11 @@ const InfluencersVideos = () => {
                   Your browser does not support the video tag.
                 </video>
               </Box>
+
               <Box
                 sx={{
                   position: "absolute",
-                  top: "170px",
+                  top: "150px",
                   left: "50%",
                   transform: "translateX(-50%)",
                   backgroundColor: "white",
@@ -112,11 +120,12 @@ const InfluencersVideos = () => {
                   style={{ width: "70px", height: "70px" }}
                 />
               </Box>
+
               <Box
                 sx={{
                   padding: "20px 10px 10px",
                   textAlign: "center",
-                  marginTop: "95px",
+                  marginTop: "85px",
                 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -141,6 +150,7 @@ const InfluencersVideos = () => {
                     Rs {card.oldPrice}
                   </Typography>
                 </Box>
+
                 <Box
                   sx={{
                     display: "flex",
@@ -165,6 +175,7 @@ const InfluencersVideos = () => {
                       {card.reviews} Reviews
                     </Typography>
                   </Box>
+
                   <Box
                     sx={{
                       backgroundColor: "#d4f4e4",
