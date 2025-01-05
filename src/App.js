@@ -29,37 +29,28 @@ import SellingProducts from './Components/SellingProducts/SellingProducts.jsx';
 function App() {
 
   return (
-    <div style={{ backgroundColor: "#F1F3F6" }}>
-        <div>
-      
+    <Box style={{ backgroundColor: "#F1F3F6" }}>
+      <Box>
+        {/* Items Component */}
+        <Items />
+        <Slider />
+        {/* Sale Banner */}
+        <Box className="container mt-4">
+          <img className="img-fluid bg-transparent" src={salebanner} alt="Sale Banner" />
+        </Box>
+        <Products />
+      </Box>
+      <InfluencersVideos />
+      <SellingProducts />
+      <Products2 />
+      <Products3 />
+      <BrandsAndReviews />
+      <BuyingReasons />
+      <Products4 />
+      <OurService />
+      <Footer />
 
-          {/* Items Component */}
-          <Items />
-
-          <Slider />
-
-          {/* Sale Banner */}
-          <Box className="container mt-4">
-            <img className="img-fluid bg-transparent" src={salebanner} alt="Sale Banner" />
-          </Box>
-
-     <Products/>
-        
-        </div>
-
-        <InfluencersVideos />
-
-        <SellingProducts/>
-        <Products2/>
-
-        <Products3/>
-        <BrandsAndReviews />
-        <BuyingReasons />
-        <Products4/>
-        <OurService />
-        <Footer />
-    
-    </div>
+    </Box>
   );
 }
 

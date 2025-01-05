@@ -21,7 +21,7 @@ ReactDOM.render(
             <Layout>
                 <Routes>
                     <Route path="/" element={<App />} /> {/* Home page */}
-                    <Route path="/product-details/:id" element={<ProductDetails />} /> {/* Dynamic route */}
+                    <Route path="/product-details/:id" element={<ProductDetails />} /> 
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/register" element={<RegisterForm />} />
                     <Route path="/profile" element={<Profile />} />
