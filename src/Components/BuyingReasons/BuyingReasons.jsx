@@ -23,193 +23,87 @@ const BuyingReasons = () => {
 
             {/* Cards Section */}
             <Box className="row gy-4">
-                {/* Card 1 */}
-                <Box className="col-12 col-md-6 col-lg-6">
-                    <Box
-                        className="d-flex align-items-center justify-content-center p-4 shadow-sm rounded"
-                        style={{
-                            backgroundColor: "#0078D5",
-                            color: "#000000",
-                            border: "1px solid #ccc",
-                        }}
-                    >
-                        <img
-                            src={buyImg1}
-                            alt="Extended Warranty"
-                            style={{
-                                width: "160px",
-                                height: "160px",
-                            }}
-                        />
+                {[buyImg1, buyImg2, buyImg3, buyImg4].map((img, index) => (
+                    <Box key={index} className="col-12 col-md-6 col-lg-6">
                         <Box
-                            className="text-center"
-                            style={{
-                                marginLeft: "20px",
+                            className="d-flex align-items-center p-4 shadow-sm rounded"
+                            sx={{
+                                flexDirection: { xs: "column", md: "row" },
+                                justifyContent: "space-evenly", // Ensures space between content
+                                backgroundColor: "#0078D5",
+                                color: "#000000",
+                                border: "1px solid #ccc",
+                                textAlign: { xs: "center", md: "left" },
+                                height: "100%", // Ensures proper height in columns
                             }}
                         >
-                            <Typography
-                                variant="body1"
-                                className="mt-3 fw-fw-semibold text-white"
-                                style={{ fontSize: "18px" }}
-                            >
-                                Priceoye <br />
-                                Extended Warranty
-                            </Typography>
-                            <Button
-                                size="small"
+                            <img
+                                src={img}
+                                alt={`Reason ${index + 1}`}
                                 style={{
-                                    backgroundColor: "#F47708",
-                                    color: "#FFFFFF",
-                                    marginTop: "10px",
-                                    padding: "6px 12px",
+                                    width: "160px",
+                                    height: "160px",
+                                }}
+                            />
+                            <Box
+                                sx={{
+                                    marginLeft: { xs: "0", md: "20px" },
+                                    marginTop: { xs: "20px", md: "0" },
+                                    textAlign: "center", // Ensures text and button are centered
                                 }}
                             >
-                                Know More
-                            </Button>
+                                <Typography
+                                    variant="body1"
+                                    className="fw-semibold"
+                                    sx={{
+                                        fontSize: "18px",
+                                        color: "#FFFFFF",
+                                        marginBottom: "10px", // Adds space between text and button
+                                    }}
+                                >
+                                    {index === 0 && (
+                                        <>
+                                            Priceoye <br />
+                                            Extended Warranty
+                                        </>
+                                    )}
+                                    {index === 1 && (
+                                        <>
+                                            Packaging <br />
+                                            Video
+                                        </>
+                                    )}
+                                    {index === 2 && (
+                                        <>
+                                            Open Parcel <br />
+                                            (ISB - LHR - KHI)
+                                        </>
+                                    )}
+                                    {index === 3 && (
+                                        <>
+                                            Easy <br />
+                                            Installments
+                                        </>
+                                    )}
+                                </Typography>
+                                <Button
+                                    size="small"
+                                    sx={{
+                                        backgroundColor: "#F47708",
+                                        color: "#FFFFFF",
+                                        marginTop: "10px",
+                                        padding: "6px 12px",
+                                        "&:hover": {
+                                            backgroundColor: "#FF8800",
+                                        },
+                                    }}
+                                >
+                                    Know More
+                                </Button>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
-
-                {/* Card 2 */}
-                <Box className="col-12 col-md-6 col-lg-6">
-                    <Box
-                        className="d-flex align-items-center justify-content-center p-4 shadow-sm rounded"
-                        style={{
-                            backgroundColor: "#0078D5",
-                            color: "#000000",
-                            border: "1px solid #ccc",
-                        }}
-                    >
-                        <img
-                            src={buyImg2}
-                            alt="Order Packaging"
-                            style={{
-                                width: "160px",
-                                height: "160px",
-                            }}
-                        />
-                        <Box
-                            className="text-center"
-                            style={{
-                                marginLeft: "20px",
-                            }}
-                        >
-                            <Typography
-                                variant="body1"
-                                className="mt-3 fw-fw-semibold text-white"
-                                style={{ fontSize: "18px" }}
-                            >
-                                Packaging <br />
-                                Video
-                            </Typography>
-                            <Button
-                                size="small"
-                                style={{
-                                    backgroundColor: "#F47708",
-                                    color: "#FFFFFF",
-                                    marginTop: "10px",
-                                    padding: "6px 12px",
-                                }}
-                            >
-                                Know More
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
-
-                {/* Card 3 */}
-                <Box className="col-12 col-md-6 col-lg-6">
-                    <Box
-                        className="d-flex align-items-center justify-content-center p-4 shadow-sm rounded"
-                        style={{
-                            backgroundColor: "#0078D5",
-                            color: "#000000",
-                            border: "1px solid #ccc",
-                        }}
-                    >
-                        <img
-                            src={buyImg3}
-                            alt="Feature Shipping"
-                            style={{
-                                width: "160px",
-                                height: "160px",
-                            }}
-                        />
-                        <Box
-                            className="text-center"
-                            style={{
-                                marginLeft: "20px",
-                            }}
-                        >
-                            <Typography
-                                variant="body1"
-                                className="mt-3 fw-fw-semibold text-white"
-                                style={{ fontSize: "18px" }}
-                            >
-                                Open Parcel <br />
-                                (ISB - LHR - KHI)
-                            </Typography>
-                            <Button
-                                size="small"
-                                style={{
-                                    backgroundColor: "#F47708",
-                                    color: "#FFFFFF",
-                                    marginTop: "10px",
-                                    padding: "6px 12px",
-                                }}
-                            >
-                                Know More
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
-
-                {/* Card 4 */}
-                <Box className="col-12 col-md-6 col-lg-6">
-                    <Box
-                        className="d-flex align-items-center justify-content-center p-4 shadow-sm rounded"
-                        style={{
-                            backgroundColor: "#0078D5",
-                            color: "#000000",
-                            border: "1px solid #ccc",
-                        }}
-                    >
-                        <img
-                            src={buyImg4}
-                            alt="Easy Installments"
-                            style={{
-                                width: "160px",
-                                height: "160px",
-                            }}
-                        />
-                        <Box
-                            className="text-center"
-                            style={{
-                                marginLeft: "20px",
-                            }}
-                        >
-                            <Typography
-                                variant="body1"
-                                className="mt-3 fw-fw-semibold text-white"
-                                style={{ fontSize: "18px" }}
-                            >
-                                Easy <br />
-                                Installments
-                            </Typography>
-                            <Button
-                                size="small"
-                                style={{
-                                    backgroundColor: "#F47708",
-                                    color: "#FFFFFF",
-                                    marginTop: "10px",
-                                    padding: "6px 12px",
-                                }}
-                            >
-                                Know More
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
+                ))}
             </Box>
         </Box>
     );

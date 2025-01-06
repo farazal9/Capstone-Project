@@ -210,35 +210,48 @@ const Products = () => {
               height: "10px",
             }}
           />
-          <Typography variant="body2" className="mx-1">
+          <Typography variant="body2" className="mx-1" style={{ fontSize: "0.9rem" }}>
             {product.rating}
           </Typography>
-          <Typography variant="caption" className="text-muted">
+          <Typography variant="caption" className="text-muted" style={{ fontSize: "0.8rem" }}>
             {product.reviews} Reviews
           </Typography>
         </Box>
 
         {/* Product Details */}
         <Box className="w-100">
-          <Typography variant="body1" className="fw-bold mb-1">
-            {product.name}
+          <Typography
+            variant="body1"
+            className="fw-bolder mb-1"
+            style={{
+              fontSize: "1rem",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              width: "160px", // Restrict width to show only 18 characters
+            }}
+            title={product.name} // Show full name on hover
+          >
+            {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
           </Typography>
-          <Typography variant="h6" className="text-success fw-bold">
+          <Typography variant="h6" className="text-success fw-normal" style={{ fontSize: "1.2rem" }}>
             Rs {product.price}
           </Typography>
           <Box className="d-flex justify-content-between w-100 mt-1">
             <Typography
               variant="body2"
               className="text-danger text-decoration-line-through"
+              style={{ fontSize: "0.9rem" }}
             >
               Rs {product.retailPrice}
             </Typography>
-            <Typography variant="body2" className="text-success">
+            <Typography variant="body2" className="text-success" style={{ fontSize: "0.9rem" }}>
               {product.discount}
             </Typography>
           </Box>
         </Box>
       </Box>
+
     </SwiperSlide>
   );
 

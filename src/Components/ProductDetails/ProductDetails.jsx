@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { setSelectedProduct } from "../../Slices/cartSlice"; // Update path as needed
+import { addProductToCart } from '../../Slices/cartSlice';
+
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
-    dispatch(setSelectedProduct(product)); // Save selected product in Redux
+    dispatch(addProductToCart(product));
+    // Save selected product in Redux
     navigate("/delivery"); // Navigate to delivery page
   };
 

@@ -1,18 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedProduct: null, // Ensure initial value is defined
+  selectedProducts: [], // Array to hold multiple products
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setSelectedProduct: (state, action) => {
-      state.selectedProduct = action.payload; // Update selectedProduct
+    addProductToCart: (state, action) => {
+      state.selectedProducts.push(action.payload); // Add product to the array
+    },
+    removeProductFromCart: (state, action) => {
+      state.selectedProducts = state.selectedProducts.filter(
+        (product) => product.id !== action.payload // Remove product by ID
+      );
     },
   },
 });
 
-export const { setSelectedProduct } = cartSlice.actions;
+export const { addProductToCart, removeProductFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
