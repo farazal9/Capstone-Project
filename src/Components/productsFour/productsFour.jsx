@@ -169,19 +169,7 @@ const Products4 = () => {
          onClick={() => navigate(`/product-details/${product.id}`)}
          className="shadow-sm rounded p-3 bg-white position-relative"
        >
-         {/* Sale Badge */}
-         <Box
-           component="img"
-           src="https://images.priceoye.pk/badges/priceoye-sale-20241212-w3sbv.png"
-           alt="Sale Badge"
-           className="position-absolute"
-           style={{
-             top: "10px",
-             right: "10px",
-             width: "90px",
-             height: "70px",
-           }}
-         />
+       
  
          {/* Product Image */}
          <Box className="text-center mb-3 d-flex justify-content-center w-100">
