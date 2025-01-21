@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
 
 
@@ -161,131 +162,162 @@ const products8 = [
 
 const Products4 = () => {
   const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(null); // State to keep track of active card
+  const swiper1Ref = useRef(null);
+  const swiper2Ref = useRef(null);
 
-  const renderProductCard = (product) => (
+  const handleCardClick = (product, index) => {
+    setActiveIndex(index); // Update active card index
+    navigate(`/product-details/${product.id}`);
+  };
+
+  const renderProductCard = (product, index) => (
     <SwiperSlide key={product.id}>
-   <Box
-         sx={{ cursor: "pointer" }}
-         onClick={() => navigate(`/product-details/${product.id}`)}
-         className="shadow-sm rounded p-3 bg-white position-relative"
-       >
-       
- 
-         {/* Product Image */}
-         <Box className="text-center mb-3 d-flex justify-content-center w-100">
-           <Box
-             component="img"
-             src={product.imageUrl}
-             alt={product.name}
-             className="img-fluid"
-             style={{
-               maxWidth: "120px",
-               maxHeight: "120px",
-             }}
-           />
-         </Box>
- 
-         {/* Rating */}
-         <Box
-           className="mb-2 d-flex align-items-center bg-light p-2 rounded"
-           style={{ backgroundColor: "#FBF7EB" }}
-         >
-           <Box
-             component="img"
-             src="https://static.priceoye.pk/images/stars.svg"
-             alt="Rating Star"
-             className="me-1"
-             style={{
-               width: "10px",
-               height: "10px",
-             }}
-           />
-           <Typography variant="body2" className="mx-1" style={{ fontSize: "0.9rem" }}>
-             {product.rating}
-           </Typography>
-           <Typography variant="caption" className="text-muted" style={{ fontSize: "0.8rem" }}>
-             {product.reviews} Reviews
-           </Typography>
-         </Box>
- 
-         {/* Product Details */}
-         <Box className="w-100">
-           <Typography
-             variant="body1"
-             className="fw-bolder mb-1"
-             style={{
-               fontSize: "1rem",
-               textOverflow: "ellipsis",
-               whiteSpace: "nowrap",
-               overflow: "hidden",
-               width: "160px", // Restrict width to show only 18 characters
-             }}
-             title={product.name} // Show full name on hover
-           >
-             {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
-           </Typography>
-           <Typography variant="h6" className="text-success fw-normal" style={{ fontSize: "1.2rem" }}>
-             Rs {product.price}
-           </Typography>
-           <Box className="d-flex justify-content-between w-100 mt-1">
-             <Typography
-               variant="body2"
-               className="text-danger text-decoration-line-through"
-               style={{ fontSize: "0.9rem" }}
-             >
-               Rs {product.retailPrice}
-             </Typography>
-             <Typography variant="body2" className="text-success" style={{ fontSize: "0.9rem" }}>
-               {product.discount}
-             </Typography>
-           </Box>
-         </Box>
-       </Box>
+      <Box
+        sx={{ cursor: "pointer", border: activeIndex === index ? '2px solid #F94F9A' : 'none' }}
+        onClick={() => handleCardClick(product, index)}
+        className="shadow-sm rounded p-3 bg-white position-relative"
+      >
+        {/* Product Image */}
+        <Box className="text-center mb-3 d-flex justify-content-center w-100">
+          <Box
+            component="img"
+            src={product.imageUrl}
+            alt={product.name}
+            className="img-fluid"
+            style={{
+              maxWidth: "120px",
+              maxHeight: "120px",
+            }}
+          />
+        </Box>
+
+        {/* Rating */}
+        <Box
+          className="mb-2 d-flex align-items-center bg-light p-2 rounded"
+          style={{ backgroundColor: "#FBF7EB" }}
+        >
+          <Box
+            component="img"
+            src="https://static.priceoye.pk/images/stars.svg"
+            alt="Rating Star"
+            className="me-1"
+            style={{
+              width: "10px",
+              height: "10px",
+            }}
+          />
+          <Typography variant="body2" className="mx-1" style={{ fontSize: "0.9rem" }}>
+            {product.rating}
+          </Typography>
+          <Typography variant="caption" className="text-muted" style={{ fontSize: "0.8rem" }}>
+            {product.reviews} Reviews
+          </Typography>
+        </Box>
+
+        {/* Product Details */}
+        <Box className="w-100">
+          <Typography
+            variant="body1"
+            className="fw-bolder mb-1"
+            style={{
+              fontSize: "1rem",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              width: "160px", // Restrict width to show only 18 characters
+            }}
+            title={product.name} // Show full name on hover
+          >
+            {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
+          </Typography>
+          <Typography variant="h6" className="text-success fw-normal" style={{ fontSize: "1.2rem" }}>
+            Rs {product.price}
+          </Typography>
+          <Box className="d-flex justify-content-between w-100 mt-1">
+            <Typography
+              variant="body2"
+              className="text-danger text-decoration-line-through"
+              style={{ fontSize: "0.9rem" }}
+            >
+              Rs {product.retailPrice}
+            </Typography>
+            <Typography variant="body2" className="text-success" style={{ fontSize: "0.9rem" }}>
+              {product.discount}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
     </SwiperSlide>
   );
 
   return (
-    <div>
-      <div className="w-100 mt-5" style={{ backgroundColor: "#F94F9A" }}>
+    <Box sx={{ backgroundColor: "#F94F9A", padding: '0px 20px', position: 'relative' }}>
+      <div className="w-100 mt-5">
         <div className="container">
           <div className="latest-product-box p-4 rounded">
             {/* Header Section */}
             <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
-              <h1 className="h5 text-white">Shaver</h1>
+            <h1 className="h5 text-white">Shavers
+            </h1>
               <span className="btn btn-light">View All</span>
             </div>
-            {/* Swiper Section */}
-            <Swiper
-              className="pt-5"
-              slidesPerView={4} // Default for large screens
-              spaceBetween={15}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 4, // Large screens (>= 1200px)
-                  spaceBetween: 15,
-                },
-                768: {
-                  slidesPerView: 2, // Medium screens (768px to <1200px)
-                  spaceBetween: 15,
-                },
-                576: {
-                  slidesPerView: 1, // Small screens (576px to <768px)
-                  spaceBetween: 15,
-                },
-                0: {
-                  slidesPerView: 1, // Extra small screens (<576px)
-                  spaceBetween: 10,
-                },
-              }}
-            >
-              {products7.map(renderProductCard)}
-            </Swiper>
 
-            {/* Swiper Section */}
+            {/* Swiper Section with Background Color */}
+            <Box >
+              <Swiper
+                ref={swiper1Ref}
+                className="pt-5 mySwiper"
+                slidesPerView={4} // Default for large screens
+                spaceBetween={15}
+                navigation={{
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                }}
+                modules={[Navigation]}
+                breakpoints={{
+                  1200: {
+                    slidesPerView: 4, // Large screens (>= 1200px)
+                    spaceBetween: 15,
+                  },
+                  768: {
+                    slidesPerView: 2, // Medium screens (768px to <1200px)
+                    spaceBetween: 15,
+                  },
+                  576: {
+                    slidesPerView: 1, // Small screens (576px to <768px)
+                    spaceBetween: 15,
+                  },
+                  0: {
+                    slidesPerView: 1, // Extra small screens (<576px)
+                    spaceBetween: 10,
+                  },
+                }}
+                onSlideChange={(swiper) => {
+                  if (swiper2Ref.current && swiper2Ref.current.swiper) {
+                    swiper2Ref.current.swiper.slideTo(swiper.activeIndex);
+                  }
+                }}
+              >
+                {products7.map((product, index) => renderProductCard(product, index))}
+              </Swiper>
+
+              {/* Navigation Buttons */}
+              <div className="swiper-button-prev" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+              <div className="swiper-button-next" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+            </Box>
+
+            {/* Swiper Section without Background Color */}
             <Swiper
-              className="pt-5"
+              ref={swiper2Ref}
+              className="pt-5 mySwiper"
               slidesPerView={4} // Default for large screens
               spaceBetween={15}
+              navigation={{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }}
+              modules={[Navigation]}
               breakpoints={{
                 1200: {
                   slidesPerView: 4, // Large screens (>= 1200px)
@@ -304,15 +336,19 @@ const Products4 = () => {
                   spaceBetween: 10,
                 },
               }}
+              onSlideChange={(swiper) => {
+                if (swiper1Ref.current && swiper1Ref.current.swiper) {
+                  swiper1Ref.current.swiper.slideTo(swiper.activeIndex);
+                }
+              }}
             >
-              {products8.map(renderProductCard)}
+              {products8.map((product, index) => renderProductCard(product, index))}
             </Swiper>
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
-
 
 export default Products4;

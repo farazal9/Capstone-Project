@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
-
 
 const products1 = [
   {
@@ -56,7 +56,7 @@ const products1 = [
   },
   {
     id: 5,
-    name: "Redmi Buds 6  Wireless Earbuds",
+    name: "Redmi Buds 6 Wireless Earbuds",
     brand: "Xiaomi",
     price: 4611,
     retailPrice: 7199,
@@ -78,13 +78,12 @@ const products1 = [
     imageUrl: "https://images.priceoye.pk/soundpeats-engine4-wireless-earbuds-pakistan-priceoye-40ifu-270x270.webp",
     description: "Engineered for bass enthusiasts with dual drivers and ergonomic design."
   },
-
 ];
 
 const products2 = [
   {
     id: 7,
-    name: "Soundpeats  Earbuds",
+    name: "Soundpeats Earbuds",
     brand: "Soundpeats",
     price: 10518,
     retailPrice: 41400,
@@ -132,7 +131,7 @@ const products2 = [
   },
   {
     id: 11,
-    name: "Audionic Airbud 590  Earbuds",
+    name: "Audionic Airbud 590 Earbuds",
     brand: "Audionic",
     price: 3499,
     retailPrice: 4999,
@@ -145,7 +144,7 @@ const products2 = [
   {
     id: 12,
     name: "Xiaomi Wireless Earbuds",
-    brand: "Xiaomi", // Updated company name to Xiaomi
+    brand: "Xiaomi",
     price: 9499,
     retailPrice: 9499,
     discount: "58% OFF",
@@ -156,18 +155,24 @@ const products2 = [
   },
 ];
 
-
 const Products = () => {
   const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(null); // State to keep track of active card
+  const swiper1Ref = useRef(null);
+  const swiper2Ref = useRef(null);
 
-  const renderProductCard = (product) => (
+  const handleCardClick = (product, index) => {
+    setActiveIndex(index); // Update active card index
+    navigate(`/product-details/${product.id}`);
+  };
+
+  const renderProductCard = (product, index) => (
     <SwiperSlide key={product.id}>
       <Box
-        sx={{ cursor: "pointer" }}
-        onClick={() => navigate(`/product-details/${product.id}`)}
+        sx={{ cursor: "pointer", border: activeIndex === index ? '2px solid #F94F9A' : 'none' }}
+        onClick={() => handleCardClick(product, index)}
         className="shadow-sm rounded p-3 bg-white position-relative"
       >
-     
         {/* Product Image */}
         <Box className="text-center mb-3 d-flex justify-content-center w-100">
           <Box
@@ -238,13 +243,12 @@ const Products = () => {
           </Box>
         </Box>
       </Box>
-
     </SwiperSlide>
   );
 
   return (
-    <div>
-      <div className="w-100 mt-5" style={{ backgroundColor: "#F94F9A" }}>
+    <Box sx={{ backgroundColor: "#F94F9A", padding: '0px 20px', position: 'relative' }}>
+      <div className="w-100 mt-5">
         <div className="container">
           <div className="latest-product-box p-4 rounded">
             {/* Header Section */}
@@ -253,11 +257,61 @@ const Products = () => {
               <span className="btn btn-light">View All</span>
             </div>
 
-            {/* Swiper Section */}
+            {/* Swiper Section with Background Color */}
+            <Box >
+              <Swiper
+                ref={swiper1Ref}
+                className="pt-5 mySwiper"
+                slidesPerView={4} // Default for large screens
+                spaceBetween={15}
+                navigation={{
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                }}
+                modules={[Navigation]}
+                breakpoints={{
+                  1200: {
+                    slidesPerView: 4, // Large screens (>= 1200px)
+                    spaceBetween: 15,
+                  },
+                  768: {
+                    slidesPerView: 2, // Medium screens (768px to <1200px)
+                    spaceBetween: 15,
+                  },
+                  576: {
+                    slidesPerView: 1, // Small screens (576px to <768px)
+                    spaceBetween: 15,
+                  },
+                  0: {
+                    slidesPerView: 1, // Extra small screens (<576px)
+                    spaceBetween: 10,
+                  },
+                }}
+                onSlideChange={(swiper) => {
+                  if (swiper2Ref.current && swiper2Ref.current.swiper) {
+                    swiper2Ref.current.swiper.slideTo(swiper.activeIndex);
+                  }
+                }}
+              >
+                {products1.map((product, index) => renderProductCard(product, index))}
+              </Swiper>
+
+              {/* Navigation Buttons */}
+              <div className="swiper-button-prev" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+              <div className="swiper-button-next" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+            </Box>
+
+            {/* Swiper Section without Background Color */}
             <Swiper
-              className="pt-5"
+              ref={swiper2Ref}
+              className="pt-5 mySwiper"
               slidesPerView={4} // Default for large screens
               spaceBetween={15}
+              navigation={{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              }}
+              modules={[Navigation]}
               breakpoints={{
                 1200: {
                   slidesPerView: 4, // Large screens (>= 1200px)
@@ -276,41 +330,19 @@ const Products = () => {
                   spaceBetween: 10,
                 },
               }}
-            >
-              {products1.map(renderProductCard)}
-            </Swiper>
-            {/* Swiper Section */}
-            <Swiper
-              className="pt-5"
-              slidesPerView={4} // Default for large screens
-              spaceBetween={15}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 4, // Large screens (>= 1200px)
-                  spaceBetween: 15,
-                },
-                768: {
-                  slidesPerView: 2, // Medium screens (768px to <1200px)
-                  spaceBetween: 15,
-                },
-                576: {
-                  slidesPerView: 1, // Small screens (576px to <768px)
-                  spaceBetween: 15,
-                },
-                0: {
-                  slidesPerView: 1, // Extra small screens (<576px)
-                  spaceBetween: 10,
-                },
+              onSlideChange={(swiper) => {
+                if (swiper1Ref.current && swiper1Ref.current.swiper) {
+                  swiper1Ref.current.swiper.slideTo(swiper.activeIndex);
+                }
               }}
             >
-              {products2.map(renderProductCard)}
+              {products2.map((product, index) => renderProductCard(product, index))}
             </Swiper>
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
-
 
 export default Products;
