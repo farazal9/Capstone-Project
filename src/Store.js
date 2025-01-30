@@ -1,6 +1,7 @@
+// store.js
 import { configureStore } from "@reduxjs/toolkit";
 import orderReducer from "./Slices/orderSlice";
-import productReducer from "./Slices/ProductSlice"; // Ensure the correct casing
+import productReducer from "./Slices/ProductSlice";
 import cartReducer from "./Slices/cartSlice";
 
 const store = configureStore({
@@ -8,6 +9,7 @@ const store = configureStore({
     orders: orderReducer,
     products: productReducer, // Integrating the product slice
     cart: cartReducer,
+    
   },
 });
 
