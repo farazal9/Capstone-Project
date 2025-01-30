@@ -14,6 +14,7 @@ import Delivery from './Components/Delivery/Delivery';
 import TrackOrder from './Components/Trackorder/TrackOrder';
 import { Provider } from 'react-redux';
 import store from './Store';
+import EditProfile from './Components/EditProfile/EditProfile';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -27,6 +28,8 @@ ReactDOM.render(
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/delivery" element={<Delivery />} />
                     <Route path="/track-order" element={<TrackOrder />} /> {/* Route for TrackOrder Component */}
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/edit-profile" element={<EditProfile />} /> {/* Route for EditProfile component */}
                 </Routes>
             </Layout>
         </Router>

@@ -1,10 +1,12 @@
 
 import { Navigation } from 'swiper/modules';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography,Container } from '@mui/material';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import BackgroundImage from '../../assests/section-three-.bg.png';
 
 const products5 = [
   {
@@ -252,9 +254,18 @@ const Products3 = () => {
   );
 
   return (
-    <Box sx={{ backgroundColor: "#FCE55E", padding: '0px 20px', position: 'relative' }}>
-      <div className="w-100 mt-5">
-        <div className="container">
+    <Box className="mt-5"
+    sx={{
+      backgroundImage: `url(${BackgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      position: 'relative',
+      overflow: 'hidden', // Hide the overflow to show only part of the background image
+    }}
+  >
+      <div className="w-100">
+        <Container>
+    
           <div className="latest-product-box p-4 rounded">
             {/* Header Section */}
             <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
@@ -262,9 +273,8 @@ const Products3 = () => {
             </h1>
               <span className="btn btn-light">View All</span>
             </div>
-
-            {/* Swiper Section with Background Color */}
-            <Box >
+     {/* Swiper Section */}
+            <Box position="relative">
               <Swiper
                 ref={swiper1Ref}
                 className="pt-5 mySwiper"
@@ -302,10 +312,41 @@ const Products3 = () => {
                 {products5.map((product, index) => renderProductCard(product, index))}
               </Swiper>
 
-              {/* Navigation Buttons */}
-              <div className="swiper-button-prev" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
-              <div className="swiper-button-next" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+              {/* Custom Navigation Buttons */}
+              <Box className="swiper-button-prev" sx={{
+                position: 'absolute',
+                top: '110%',
+                left: 0,
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                backgroundColor: '#6A7176',
+                color: 'white',
+                cursor: 'pointer',
+                padding: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <ArrowBackIos />
+              </Box>
+              <Box className="swiper-button-next" sx={{
+                position: 'absolute',
+                top: '110%',
+                right: 0,
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                backgroundColor: '#6A7176',
+                color: 'white',
+                cursor: 'pointer',
+                padding: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <ArrowForwardIos />
+              </Box>
             </Box>
+
 
             {/* Swiper Section without Background Color */}
             <Swiper
@@ -345,7 +386,8 @@ const Products3 = () => {
               {products6.map((product, index) => renderProductCard(product, index))}
             </Swiper>
           </div>
-        </div>
+     
+        </Container>
       </div>
     </Box>
   );

@@ -543,7 +543,7 @@ export function PrimarySearchAppBar() {
               {DrawerList}
             </Drawer>
 
-            <img className='img-fluid' src={logo} alt="Logo" style={{ height: "25px" }} />
+            <img className='img-fluid'   onClick={() => navigate("/")}  src={logo} alt="Logo" style={{ height: "25px",cursor:"pointer" }} />
 
           </Box>
 

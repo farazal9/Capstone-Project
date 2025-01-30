@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css'; // Import Swiper styles
+import BackgroundImage from '../../assests/section-one-bg.png';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+
 
 const products1 = [
   {
@@ -154,7 +157,6 @@ const products2 = [
     description: "Durable and stylish earbuds offering superb sound quality for music and calls."
   },
 ];
-
 const Products = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(null); // State to keep track of active card
@@ -169,7 +171,7 @@ const Products = () => {
   const renderProductCard = (product, index) => (
     <SwiperSlide key={product.id}>
       <Box
-        sx={{ cursor: "pointer", border: activeIndex === index ? '2px solid #F94F9A' : 'none' }}
+        sx={{ cursor: 'pointer', border: activeIndex === index ? '2px solid #F94F9A' : 'none' }}
         onClick={() => handleCardClick(product, index)}
         className="shadow-sm rounded p-3 bg-white position-relative"
       >
@@ -181,8 +183,8 @@ const Products = () => {
             alt={product.name}
             className="img-fluid"
             style={{
-              maxWidth: "120px",
-              maxHeight: "120px",
+              maxWidth: '120px',
+              maxHeight: '120px',
             }}
           />
         </Box>
@@ -190,7 +192,7 @@ const Products = () => {
         {/* Rating */}
         <Box
           className="mb-2 d-flex align-items-center bg-light p-2 rounded"
-          style={{ backgroundColor: "#FBF7EB" }}
+          style={{ backgroundColor: '#FBF7EB' }}
         >
           <Box
             component="img"
@@ -198,14 +200,14 @@ const Products = () => {
             alt="Rating Star"
             className="me-1"
             style={{
-              width: "10px",
-              height: "10px",
+              width: '10px',
+              height: '10px',
             }}
           />
-          <Typography variant="body2" className="mx-1" style={{ fontSize: "0.9rem" }}>
+          <Typography variant="body2" className="mx-1" style={{ fontSize: '0.9rem' }}>
             {product.rating}
           </Typography>
-          <Typography variant="caption" className="text-muted" style={{ fontSize: "0.8rem" }}>
+          <Typography variant="caption" className="text-muted" style={{ fontSize: '0.8rem' }}>
             {product.reviews} Reviews
           </Typography>
         </Box>
@@ -216,28 +218,28 @@ const Products = () => {
             variant="body1"
             className="fw-bolder mb-1"
             style={{
-              fontSize: "1rem",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              width: "160px", // Restrict width to show only 18 characters
+              fontSize: '1rem',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              width: '160px', // Restrict width to show only 18 characters
             }}
             title={product.name} // Show full name on hover
           >
             {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
           </Typography>
-          <Typography variant="h6" className="text-success fw-normal" style={{ fontSize: "1.2rem" }}>
+          <Typography variant="h6" className="text-success fw-normal" style={{ fontSize: '1.2rem' }}>
             Rs {product.price}
           </Typography>
           <Box className="d-flex justify-content-between w-100 mt-1">
             <Typography
               variant="body2"
               className="text-danger text-decoration-line-through"
-              style={{ fontSize: "0.9rem" }}
+              style={{ fontSize: '0.9rem' }}
             >
               Rs {product.retailPrice}
             </Typography>
-            <Typography variant="body2" className="text-success" style={{ fontSize: "0.9rem" }}>
+            <Typography variant="body2" className="text-success" style={{ fontSize: '0.9rem' }}>
               {product.discount}
             </Typography>
           </Box>
@@ -247,9 +249,17 @@ const Products = () => {
   );
 
   return (
-    <Box sx={{ backgroundColor: "#F94F9A", padding: '0px 20px', position: 'relative' }}>
-      <div className="w-100 mt-5">
-        <div className="container">
+    <Box className="mt-5"
+      sx={{
+        backgroundImage: `url(${BackgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'relative',
+        overflow: 'hidden', // Hide the overflow to show only part of the background image
+      }}
+    >
+      <div className="w-100">
+        <Container>
           <div className="latest-product-box p-4 rounded">
             {/* Header Section */}
             <div className="d-flex justify-content-between align-items-center pl-heading mb-4">
@@ -257,8 +267,8 @@ const Products = () => {
               <span className="btn btn-light">View All</span>
             </div>
 
-            {/* Swiper Section with Background Color */}
-            <Box >
+            {/* Swiper Section */}
+            <Box position="relative">
               <Swiper
                 ref={swiper1Ref}
                 className="pt-5 mySwiper"
@@ -296,9 +306,39 @@ const Products = () => {
                 {products1.map((product, index) => renderProductCard(product, index))}
               </Swiper>
 
-              {/* Navigation Buttons */}
-              <div className="swiper-button-prev" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
-              <div className="swiper-button-next" style={{ color: '#fff', position: 'absolute', top: '50%', transform: 'translateY(-50%)', zIndex: 10 }}></div>
+              {/* Custom Navigation Buttons */}
+              <Box className="swiper-button-prev" sx={{
+                position: 'absolute',
+                top: '110%',
+                left: 0,
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                backgroundColor: '#6A7176',
+                color: 'white',
+                cursor: 'pointer',
+                padding: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <ArrowBackIos />
+              </Box>
+              <Box className="swiper-button-next" sx={{
+                position: 'absolute',
+                top: '110%',
+                right: 0,
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                backgroundColor: '#6A7176',
+                color: 'white',
+                cursor: 'pointer',
+                padding: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <ArrowForwardIos />
+              </Box>
             </Box>
 
             {/* Swiper Section without Background Color */}
@@ -339,7 +379,7 @@ const Products = () => {
               {products2.map((product, index) => renderProductCard(product, index))}
             </Swiper>
           </div>
-        </div>
+        </Container>
       </div>
     </Box>
   );

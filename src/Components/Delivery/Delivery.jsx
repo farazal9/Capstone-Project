@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addOrder } from "../../Slices/orderSlice"; // Update path as needed
+import { addOrder } from "../../Slices/orderSlice";
 import { useNavigate } from "react-router-dom";
-import { Stepper, Step, StepLabel, Button, TextField, Radio, FormControlLabel, IconButton, Box } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  TextField,
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Chip,
+} from "@mui/material";
+import { CheckCircle, Edit, LocationOn } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,94 +23,81 @@ const steps = ["OTP Verification", "Contact Info", "Delivery", "Payment"];
 const Delivery = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
+    mobileNumber: "03173328926",
+    otp: "",
     fullName: "",
-    email: "",
+    email: "farazxwave@gmail.com",
     address: "",
-    deliveryMethod: "standard_shipping",
-    paymentMethod: "cod", // Default payment method is Cash on Delivery
+    deliveryMethod: "",
+    paymentMethod: "",
   });
-  const [quantity, setQuantity] = useState(1); // State for product quantity
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { cartItems = [] } = useSelector((state) => state.cart);
 
-  // Fetch selected product from Redux
-  const selectedProduct = useSelector((state) => state.cart.selectedProduct);
+  useEffect(() => {
+    validateForm();
+  }, [formData, activeStep]);
+
+  const validateForm = () => {
+    let isValid = true;
+    switch (activeStep) {
+      case 0:
+        isValid = !!formData.otp;
+        break;
+      case 1:
+        isValid = !!formData.fullName && !!formData.email;
+        break;
+      case 2:
+        isValid = !!formData.address && !!formData.deliveryMethod;
+        break;
+      case 3:
+        isValid = !!formData.paymentMethod;
+        break;
+      default:
+        isValid = false;
+    }
+    setIsFormValid(isValid);
+  };
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
-      setActiveStep((prevStep) => prevStep + 1);
+      setActiveStep((prev) => prev + 1);
     } else {
-      dispatch(addOrder({ ...formData, quantity }));
-      toast.success("Order placed successfully!", { position: "top-right" });
-      setTimeout(() => {
-        navigate("/track-order");
-      }, 2000);
+      handleSubmit();
     }
   };
 
   const handleBack = () => {
-    if (activeStep > 0) setActiveStep((prevStep) => prevStep - 1);
+    setActiveStep((prev) => prev - 1);
   };
 
-  const handleChange = (e) => {
+  const handleSubmit = () => {
+    dispatch(addOrder({ ...formData, cartItems }));
+    toast.success("Order placed successfully!");
+    setTimeout(() => navigate("/track-order"), 2000);
+  };
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleDecrement = () => {
-    if (quantity > 1) setQuantity((prev) => prev - 1);
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="container mt-5">
-      {selectedProduct && (
-        <div className="card mb-4 shadow-lg rounded-lg">
-          <h4 className="card-header bg-primary text-white p-3">Selected Product</h4>
-          <div className="card-body d-flex align-items-center">
-            <img
-              src={selectedProduct.imageUrl}
-              alt={selectedProduct.name}
-              style={{ width: "120px", marginRight: "20px", borderRadius: "8px" }}
-            />
-            <div>
-              <h5 style={{ fontSize: "1.25rem", fontWeight: "bold" }}>{selectedProduct.name}</h5>
-              <p className="text-muted mb-1">PKR {selectedProduct.price.toLocaleString()}</p>
-              <Box display="flex" alignItems="center" gap={1}>
-                <IconButton color="primary" onClick={handleDecrement}>
-                  <Remove />
-                </IconButton>
-                <TextField
-                  value={quantity}
-                  variant="outlined"
-                  inputProps={{
-                    readOnly: true,
-                    style: { textAlign: "center", width: "40px" },
-                  }}
-                  size="small"
-                />
-                <IconButton color="primary" onClick={handleIncrement}>
-                  <Add />
-                </IconButton>
-              </Box>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <Stepper activeStep={activeStep} alternativeLabel className="mb-5" style={{ padding: "0 20px" }}>
-        {steps.map((label, index) => (
-          <Step key={index}>
+    <div className="container mt-5" style={{ maxWidth: 800, margin: "0 auto" }}>
+      <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 4 }}>
+        {steps.map((label) => (
+          <Step key={label}>
             <StepLabel
-              style={{
-                fontWeight: "bold",
-                color: activeStep === index ? "#48AFFF" : "#000", // Active step color
-                fontSize: "1rem",
+              StepIconProps={{
+                sx: {
+                  "&.Mui-active": { color: "#48AFFF" },
+                  "&.Mui-completed": { color: "#48AFFF" },
+                },
               }}
+              sx={{ "& .MuiStepLabel-label": { fontWeight: 600 } }}
             >
               {label}
             </StepLabel>
@@ -107,136 +105,187 @@ const Delivery = () => {
         ))}
       </Stepper>
 
-      <div className="card p-4 shadow-lg rounded-lg">
-        {activeStep < steps.length ? (
-          <>
-            {activeStep === 0 && (
-              <TextField label="Enter OTP" variant="outlined" fullWidth name="otp" className="mb-3" />
-            )}
-            {activeStep === 1 && (
-              <>
-                <TextField
-                  label="Full Name"
-                  variant="outlined"
-                  fullWidth
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="mb-3"
-                />
-                <TextField
-                  label="Email"
-                  variant="outlined"
-                  fullWidth
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="mb-3"
-                />
-              </>
-            )}
-            {activeStep === 2 && (
-              <>
-                <TextField
-                  label="Address"
-                  variant="outlined"
-                  fullWidth
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="mb-3"
-                />
-                <div className="mb-3">
-                  <FormControlLabel
-                    control={
-                      <Radio
-                        checked={formData.deliveryMethod === "standard_shipping"}
-                        onChange={handleChange}
-                        value="standard_shipping"
-                        name="deliveryMethod"
-                      />
-                    }
-                    label="Standard Shipping"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Radio
-                        checked={formData.deliveryMethod === "open_parcel"}
-                        onChange={handleChange}
-                        value="open_parcel"
-                        name="deliveryMethod"
-                      />
-                    }
-                    label="Open Parcel Delivery"
-                  />
-                </div>
-              </>
-            )}
-            {activeStep === 3 && (
-              <>
-                <div className="mb-3">
-                  <FormControlLabel
-                    control={
-                      <Radio
-                        checked={formData.paymentMethod === "cod"}
-                        onChange={handleChange}
-                        value="cod"
-                        name="paymentMethod"
-                      />
-                    }
-                    label="Cash on Delivery"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Radio
-                        checked={formData.paymentMethod === "other"}
-                        onChange={handleChange}
-                        value="other"
-                        name="paymentMethod"
-                      />
-                    }
-                    label="Other Payment Method"
-                  />
-                </div>
-                <h4 className="text-success">Please proceed to payment to complete your order.</h4>
-              </>
-            )}
-            <div className="d-flex justify-content-between">
-              <Button
+      <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+        <CardContent>
+          {activeStep === 0 && (
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Mobile Number Verification
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                <Chip label={formData.mobileNumber} color="success" />
+                <CheckCircle color="success" sx={{ ml: 1 }} />
+              </Box>
+              <TextField
+                fullWidth
+                label="Enter OTP"
                 variant="outlined"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-                style={{
-                  width: "100px",
-                  backgroundColor: "#f0f0f0",
-                  color: "#555",
-                  fontWeight: "bold",
-                  padding: "8px 16px",
+                name="otp"
+                value={formData.otp}
+                onChange={handleInputChange}
+                InputProps={{
+                  endAdornment: formData.otp && <CheckCircle color="success" />,
                 }}
-              >
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                className="btn-primary"
-                style={{
-                  width: "120px",
-                  backgroundColor: "#48AFFF", // Updated color
-                  color: "#fff",
-                  fontWeight: "bold",
-                  padding: "8px 20px",
+              />
+            </Box>
+          )}
+
+          {activeStep === 1 && (
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 3 }}>
+                Contact Information
+              </Typography>
+              <TextField
+                fullWidth
+                label="Full Name"
+                name="fullName"
+                sx={{ mb: 2 }}
+                value={formData.fullName}
+                onChange={handleInputChange}
+                InputProps={{
+                  endAdornment: <Edit color="action" />,
                 }}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </>
-        ) : (
-          <h3 style={{ color: "#28a745", fontWeight: "bold" }}>All steps completed! Thank you for your order.</h3>
-        )}
-      </div>
-      <ToastContainer />
+              />
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                InputProps={{
+                  endAdornment: <Edit color="action" />,
+                }}
+              />
+            </Box>
+          )}
+
+          {activeStep === 2 && (
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 3 }}>
+                Delivery Details
+              </Typography>
+              <TextField
+                fullWidth
+                label="Delivery Address"
+                name="address"
+                multiline
+                rows={3}
+                sx={{ mb: 3 }}
+                value={formData.address}
+                onChange={handleInputChange}
+                InputProps={{
+                  endAdornment: <LocationOn color="action" />,
+                }}
+              />
+              <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                Select Delivery Type
+              </Typography>
+              <Box sx={{ display: "flex", gap: 3 }}>
+                <Card
+                  onClick={() =>
+                    setFormData({ ...formData, deliveryMethod: "standard_shipping" })
+                  }
+                  sx={{
+                    p: 2,
+                    border:
+                      formData.deliveryMethod === "standard_shipping"
+                        ? "2px solid #48AFFF"
+                        : "1px solid #ddd",
+                    cursor: "pointer",
+                    flex: 1,
+                  }}
+                >
+                  <Typography fontWeight={600}>Standard Shipping</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    01 Feb - 04 Feb
+                  </Typography>
+                </Card>
+                <Card
+                  onClick={() =>
+                    setFormData({ ...formData, deliveryMethod: "open_parcel" })
+                  }
+                  sx={{
+                    p: 2,
+                    border:
+                      formData.deliveryMethod === "open_parcel"
+                        ? "2px solid #48AFFF"
+                        : "1px solid #ddd",
+                    cursor: "pointer",
+                    flex: 1,
+                  }}
+                >
+                  <Typography fontWeight={600}>Check Karo, Pay Karo</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Open Parcel
+                  </Typography>
+                </Card>
+              </Box>
+            </Box>
+          )}
+
+          {activeStep === 3 && (
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h6" sx={{ mb: 3 }}>
+                Payment Method
+              </Typography>
+              <Box sx={{ display: "flex", gap: 3 }}>
+                <Card
+                  onClick={() =>
+                    setFormData({ ...formData, paymentMethod: "cod" })
+                  }
+                  sx={{
+                    p: 2,
+                    border:
+                      formData.paymentMethod === "cod"
+                        ? "2px solid #48AFFF"
+                        : "1px solid #ddd",
+                    cursor: "pointer",
+                    flex: 1,
+                  }}
+                >
+                  <Typography fontWeight={600}>Cash on Delivery</Typography>
+                </Card>
+              </Box>
+            </Box>
+          )}
+
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+            <Button
+              variant="contained"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+              sx={{
+                bgcolor: "#ddd",
+                color: "#000",
+                "&:hover": { bgcolor: "#bbb" },
+                px: 4,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              disabled={!isFormValid}
+              sx={{
+                bgcolor: "#48AFFF",
+                "&:hover": { bgcolor: "#3A8ECC" },
+                px: 4,
+                py: 1.5,
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              {activeStep === steps.length - 1 ? "Confirm Order" : "Continue"}
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+
+      <ToastContainer position="top-right" />
     </div>
   );
 };
