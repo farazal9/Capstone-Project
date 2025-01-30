@@ -615,7 +615,7 @@ const initialProducts = [
   ...products8,
 ];
 
-const productSlice = createSlice({
+const ProductSlice = createSlice({
   name: "products",
   initialState: initialProducts,
   reducers: {
@@ -623,4 +623,4 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer;
+export default ProductSlice.reducer;
