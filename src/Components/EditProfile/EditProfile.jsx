@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
   Box,
-  Typography,
   TextField,
   Button,
-  IconButton,
-  Paper
+  Paper,
+  Typography,
+  Container
 } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from "react-router-dom";
@@ -13,8 +13,6 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const [name, setName] = useState(storedUser.name);
-  const [email, setEmail] = useState(storedUser.email);
-  const [mobile, setMobile] = useState(storedUser.mobile);
   const navigate = useNavigate();
 
   const handleSave = () => {
@@ -25,99 +23,115 @@ const EditProfile = () => {
   };
 
   return (
-    <Box  
-      sx={{  
-        marginTop: 4,  
-        display: "flex",  
-        flexDirection: "column",  
-        alignItems: "center",  
-        justifyContent: "center",  
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         bgcolor: "#f0f4f8", // Light background  
-        minHeight: "100vh", // Full height  
-        padding: 3,  
-      }}  
-    >  
-      <Paper  
-        sx={{  
-          width: { xs: "90%", sm: "70%", md: "50%", lg: "40%" },  
-          maxWidth: "400px",  
-          bgcolor: "#fff",  
-          p: 4, // Increased padding  
-          borderRadius: 3, // Slightly rounded corners  
-          boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.1)", // More pronounced shadow  
-        }}  
-      >  
-        <Box  
-          sx={{  
-            display: "flex",  
-            justifyContent: "space-between",  
-            alignItems: "center",  
-            marginBottom: 3,  
-          }}  
-        >  
-          <Typography variant="h5">Edit Profile</Typography>  
-          <IconButton onClick={() => navigate('/')}>  
-            <ArrowBackIcon />  
-          </IconButton>  
-        </Box>  
-        
-        <TextField  
-          fullWidth  
-          label="Name *"  
-          value={name}  
-          onChange={(e) => setName(e.target.value)}  
-          sx={{ marginBottom: 2 }}  
-          variant="outlined" // Outline variant for consistency  
-        />  
-        
-        <TextField  
-          fullWidth  
-          label="Email"  
-          value={email}  
-          sx={{ marginBottom: 2 }}  
-          variant="outlined"  
-          disabled // Assuming this is static, otherwise it should be dynamic  
-        />  
+        minHeight: "90vh", // Full height  
+        padding: { xs: "20px 0", md: "50px 0" }, // Responsive padding  
+      }}
+    >
+      {/* Header Section */}
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            height: "58px",
+            backgroundColor: "#FFFFFF",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 20px",
+            marginBottom: 2,
+          }}
+        >
+          <Box className="d-flex gap-3 align-content-center">
+            <ArrowBackIcon style={{ color: "black" }} />
+            <Typography variant="body1">Edit Profile</Typography>
+          </Box>
+        </Box>
+      </Container>
 
-        <TextField  
-          fullWidth  
-          label="Mobile No *"  
-          value={mobile}  
-          sx={{ marginBottom: 2 }}  
-          variant="outlined"  
-          disabled // Assuming this is static, otherwise it should be dynamic  
-        />  
 
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>  
-          <Button  
-            variant="contained"  
-            onClick={handleSave}  
-            sx={{  
-              backgroundColor: "#48AFFF",  
-              flex: 1,  
-              marginRight: 1,  
-              "&:hover": { backgroundColor: "#357dad" },  
-            }}  
-          >  
-            Submit  
-          </Button>  
-          <Button  
-            variant="outlined"  
-            onClick={() => navigate('/')}  
-            sx={{  
-              color: "#48AFFF",  
-              borderColor: "#48AFFF",  
-              flex: 1,  
-              "&:hover": {  
-                backgroundColor: "#f0f8ff",  
-                borderColor: "#48AFFF",  
-              },  
-            }}  
-          >  
-            Cancel  
-          </Button>  
-        </Box>  
-      </Paper>  
+      <Paper
+        sx={{
+          width: { xs: "90%", sm: "70%", md: "50%", lg: "1050px" },
+          maxWidth: "900px",
+          height: { xs: "auto", lg: "320px" }, // Responsive height  
+          bgcolor: "#fff",
+          p: { xs: 2, md: 4 }, // Responsive padding  
+          marginTop: 2,
+          boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <TextField
+          fullWidth
+          label="Name *"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          sx={{
+            marginBottom: 3,  // Adjusted margin for better spacing
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": { borderColor: "#48AFFF" },
+              "&:hover fieldset": { borderColor: "#357dad" },
+              "&.Mui-focused fieldset": { borderColor: "#48AFFF" },
+            },
+            "& input": { height: 18 } // Set input height  
+          }}
+          variant="outlined"
+        />
+
+        <TextField
+          fullWidth
+          label="Email"
+          value={storedUser.email}
+          sx={{
+            marginBottom: 3,  // Adjusted margin for better spacing
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": { borderColor: "#48AFFF" },
+              "&:hover fieldset": { borderColor: "#357dad" },
+              "&.Mui-focused fieldset": { borderColor: "#48AFFF" },
+            },
+            "& input": { height: 18 } // Set input height  
+          }}
+          variant="outlined"
+          disabled
+        />
+
+        <TextField
+          fullWidth
+          label="Mobile No *"
+          value={storedUser.mobile}
+          sx={{
+            marginBottom: 3,  // Adjusted margin for better spacing
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": { borderColor: "#48AFFF" },
+              "&:hover fieldset": { borderColor: "#357dad" },
+              "&.Mui-focused fieldset": { borderColor: "#48AFFF" },
+            },
+            "& input": { height: 18 } // Set input height  
+          }}
+          variant="outlined"
+          disabled
+        />
+
+        <Box sx={{ display: "flex", }}>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            sx={{
+              backgroundColor: "#48AFFF",
+              width: "90px",
+              height: "38px",
+              "&:hover": { backgroundColor: "#357dad" },
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Paper>
     </Box>
   );
 };

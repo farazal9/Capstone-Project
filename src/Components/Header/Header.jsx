@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
-import { Button, IconButton, Avatar, Menu, MenuItem, Accordion, AccordionSummary, Typography, AccordionDetails, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Button,IconButton, Menu, MenuItem, Accordion, AccordionSummary, Typography, AccordionDetails, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 import logo from '../../assests/logo.svg';
 import bar from "../../assests/bar.svg";
@@ -30,7 +30,7 @@ import TabletMacIcon from "@mui/icons-material/TabletMac";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import TvIcon from "@mui/icons-material/Tv";
 import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
-
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 
@@ -330,154 +330,82 @@ export function PrimarySearchAppBar() {
 
       {/* Categories Dropdown */}
       <Box sx={{ p: 3 }}>
-      <Typography variant="h6" sx={{ color: "gray", mb: 2 }}>
-        Categories
-      </Typography>
-      <List>
-        {categories.map((category, index) => (
-          <React.Fragment key={index}>
-            <Accordion
-              sx={{
-                my: 1,
-                "&.Mui-expanded": {
-                  bgcolor: "#f7f7f7",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
-                },
-              }}
-              disableGutters
-              elevation={0}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel${index}-content`}
-                id={`panel${index}-header`}
-                sx={{ padding: "0 16px" }}
+        <Typography variant="h6" sx={{ color: "gray", mb: 2 }}>
+          Categories
+        </Typography>
+        <List>
+          {categories.map((category, index) => (
+            <React.Fragment key={index}>
+              <Accordion
+                sx={{
+                  my: 1,
+                  "&.Mui-expanded": {
+                    bgcolor: "#f7f7f7",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                  },
+                }}
+                disableGutters
+                elevation={0}
               >
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  {category.icon}
-                  <Typography
-                    sx={{
-                      ml: 1,
-                      fontSize: "0.9rem",
-                      color: "gray",
-                    }}
-                  >
-                    {category.name}
-                  </Typography>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails sx={{ py: 1, pl: 3 }}>
-                <List disablePadding>
-                  {category.options.map((option, idx) => (
-                    <ListItem key={idx} disablePadding>
-                      <ListItemButton
-                        sx={{
-                          pl: 2,
-                          "&:hover": { bgcolor: "#e0e0e0" },
-                        }}
-                      >
-                        <ListItemText
-                          primary={option}
-                          primaryTypographyProps={{
-                            fontSize: "0.85rem",
-                            color: "gray",
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel${index}-content`}
+                  id={`panel${index}-header`}
+                  sx={{ padding: "0 16px" }}
+                >
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    {category.icon}
+                    <Typography
+                      sx={{
+                        ml: 1,
+                        fontSize: "0.9rem",
+                        color: "gray",
+                      }}
+                    >
+                      {category.name}
+                    </Typography>
+                  </Box>
+                </AccordionSummary>
+                <AccordionDetails sx={{ py: 1, pl: 3 }}>
+                  <List disablePadding>
+                    {category.options.map((option, idx) => (
+                      <ListItem key={idx} disablePadding>
+                        <ListItemButton
+                          sx={{
+                            pl: 2,
+                            "&:hover": { bgcolor: "#e0e0e0" },
                           }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
-              </AccordionDetails>
-            </Accordion>
-            {index < categories.length - 1 && <Divider sx={{ my: 1 }} />}
-          </React.Fragment>
-        ))}
-      </List>
-    </Box>
+                        >
+                          <ListItemText
+                            primary={option}
+                            primaryTypographyProps={{
+                              fontSize: "0.85rem",
+                              color: "gray",
+                            }}
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                </AccordionDetails>
+              </Accordion>
+              {index < categories.length - 1 && <Divider sx={{ my: 1 }} />}
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
 
       <Box
-      sx={{
-        width: 300,
-        bgcolor: "#fff",
-        p: 3,
-        height: "100vh",
-   
-      }}
-    >
-      {/* POPULAR LISTS */}
-      <Typography
-        variant="h6"
-        className="heading"
         sx={{
-          fontSize: "14px",
-          fontWeight: 600,
-          color: "#666",
-          mb: 1.5,
-          textTransform: "uppercase",
-        }}
-      >
-        POPULAR LISTS
-      </Typography>
-      <List
-        sx={{
-          padding: 0,
-          listStyle: "none",
-        }}
-      >
-        {[
-          "Best Mobiles Under 10000",
-          "Best Mobiles Under 15000",
-          "Best Mobiles Under 20000",
-          "Best Mobiles Under 30000",
-          "Best Mobiles Under 40000",
-          "Best Mobiles Under 50000",
-          "Best Mobiles Under 60000",
-          "Best Mobiles Under 80000",
-          "Best Mobiles Under 100000",
-          "Best 5G Phones",
-          "Best Camera Phones",
-          "Best Selfie Camera Phones",
-          "Best PUBG Mobiles",
-          "Most Expensive Phones",
-          "Top 10 Fast Charging Mobiles",
-          "Best Mobiles of 2023",
-        ].map((item, index) => (
-          <ListItem
-            key={index}
-            sx={{
-              padding: 0,
-              marginBottom: "8px",
-            }}
-          >
-            <Button
-              variant="outlined"
-              size="small"
-              className="btn-outline-grey"
-              sx={{
-                width: "80%",
-                justifyContent: "flex-start",
-                fontSize: "12px",
-                fontWeight:"bold",
-                color: "GrayText",
-                borderColor: "#ccc",
-                padding: "5px",
-                textTransform: "none",
-                "&:hover": {
-                  backgroundColor: "#48AFFF",
-                  color: "white",
-                  borderColor: "#999",
-                },
-              }}
-            >
-              {item}
-            </Button>
-          </ListItem>
-        ))}
-      </List>
+          width: 300,
+          bgcolor: "#fff",
+          p: 3,
+          height: "100vh",
 
-      {/* MAIN NAVIGATION */}
-      <Box sx={{ mt: 3 }} className="sb-nav-box">
+        }}
+      >
+        {/* POPULAR LISTS */}
         <Typography
           variant="h6"
           className="heading"
@@ -489,7 +417,7 @@ export function PrimarySearchAppBar() {
             textTransform: "uppercase",
           }}
         >
-          MAIN NAVIGATION
+          POPULAR LISTS
         </Typography>
         <List
           sx={{
@@ -498,15 +426,22 @@ export function PrimarySearchAppBar() {
           }}
         >
           {[
-            { text: "About", link: "https://priceoye.pk/about" },
-            { text: "FAQs", link: "https://priceoye.pk/faqs" },
-            { text: "Careers", link: "https://priceoye.pk/careers" },
-            { text: "Contact", link: "https://priceoye.pk/contact" },
-            { text: "Privacy Policy", link: "https://priceoye.pk/privacy" },
-            { text: "Press & Blog", link: "https://priceoye.pk/blog" },
-            { text: "Installments Plan", link: "https://priceoye.pk/bnpl" },
-            { text: "Terms & Condition", link: "https://priceoye.pk/terms" },
-            { text: "Warranty Center", link: "https://priceoye.pk/warranty-center" },
+            "Best Mobiles Under 10000",
+            "Best Mobiles Under 15000",
+            "Best Mobiles Under 20000",
+            "Best Mobiles Under 30000",
+            "Best Mobiles Under 40000",
+            "Best Mobiles Under 50000",
+            "Best Mobiles Under 60000",
+            "Best Mobiles Under 80000",
+            "Best Mobiles Under 100000",
+            "Best 5G Phones",
+            "Best Camera Phones",
+            "Best Selfie Camera Phones",
+            "Best PUBG Mobiles",
+            "Most Expensive Phones",
+            "Top 10 Fast Charging Mobiles",
+            "Best Mobiles of 2023",
           ].map((item, index) => (
             <ListItem
               key={index}
@@ -515,14 +450,79 @@ export function PrimarySearchAppBar() {
                 marginBottom: "8px",
               }}
             >
-            
-                {item.text}
-            
+              <Button
+                variant="outlined"
+                size="small"
+                className="btn-outline-grey"
+                sx={{
+                  width: "80%",
+                  justifyContent: "flex-start",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  color: "GrayText",
+                  borderColor: "#ccc",
+                  padding: "5px",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "#48AFFF",
+                    color: "white",
+                    borderColor: "#999",
+                  },
+                }}
+              >
+                {item}
+              </Button>
             </ListItem>
           ))}
         </List>
+
+        {/* MAIN NAVIGATION */}
+        <Box sx={{ mt: 3 }} className="sb-nav-box">
+          <Typography
+            variant="h6"
+            className="heading"
+            sx={{
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#666",
+              mb: 1.5,
+              textTransform: "uppercase",
+            }}
+          >
+            MAIN NAVIGATION
+          </Typography>
+          <List
+            sx={{
+              padding: 0,
+              listStyle: "none",
+            }}
+          >
+            {[
+              { text: "About", link: "https://priceoye.pk/about" },
+              { text: "FAQs", link: "https://priceoye.pk/faqs" },
+              { text: "Careers", link: "https://priceoye.pk/careers" },
+              { text: "Contact", link: "https://priceoye.pk/contact" },
+              { text: "Privacy Policy", link: "https://priceoye.pk/privacy" },
+              { text: "Press & Blog", link: "https://priceoye.pk/blog" },
+              { text: "Installments Plan", link: "https://priceoye.pk/bnpl" },
+              { text: "Terms & Condition", link: "https://priceoye.pk/terms" },
+              { text: "Warranty Center", link: "https://priceoye.pk/warranty-center" },
+            ].map((item, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  padding: 0,
+                  marginBottom: "8px",
+                }}
+              >
+
+                {item.text}
+
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Box>
-    </Box>
     </Box>
   );
 
@@ -543,7 +543,7 @@ export function PrimarySearchAppBar() {
               {DrawerList}
             </Drawer>
 
-            <img className='img-fluid'   onClick={() => navigate("/")}  src={logo} alt="Logo" style={{ height: "25px",cursor:"pointer" }} />
+            <img className='img-fluid' onClick={() => navigate("/")} src={logo} alt="Logo" style={{ height: "25px", cursor: "pointer" }} />
 
           </Box>
 
@@ -595,26 +595,45 @@ export function PrimarySearchAppBar() {
               </>
             ) : (
               <>
-                <IconButton onClick={handleMenuOpen}>
-                  <Avatar sx={{ bgcolor: "#ffffff", color: "#48AFFF", }}>
-                    {userName.charAt(0)} {/* User ke naam ka pehla letter */}
-                  </Avatar>
-                  <span className='text-white fs-6 ms-1'>{userName}</span>
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={() => { handleMenuClose(); navigate("/profile"); }}>
-                    Profile
-                  </MenuItem>
-                  <MenuItem onClick={handleTrackOrder}>track order</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-
-                </Menu>
-
-              </>
+              <IconButton
+                disableRipple
+                onClick={handleMenuOpen}
+                sx={{
+                  cursor: 'default', // Set cursor to default
+                  '&:hover': {
+                    backgroundColor: 'transparent', // Remove the hover background color
+                  },
+                  '& .MuiTouchRipple-root': {
+                    display: 'none', // Remove ripple effect
+                  },
+                }}
+              >
+                <AccountCircle sx={{ color: 'white', fontSize: '2rem' }} />
+                <span className='text-white fs-6 ms-1'>{userName}</span>
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                PaperProps={{
+                  sx: {
+                    backgroundColor: '#F3F3F3',
+                    borderTopLeftRadius: '0px', 
+                    borderTopRightRadius: '0px', 
+                    borderBottomLeftRadius: '10px', 
+                    borderBottomRightRadius: '10px', 
+                  },
+                }}
+              >
+                <MenuItem onClick={() => { handleMenuClose(); navigate("/profile"); }}>
+                  Profile
+                </MenuItem>
+                <MenuItem onClick={handleTrackOrder}>Track Order</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem >Complaint</MenuItem>
+                <MenuItem >Notifications</MenuItem>
+              </Menu>
+            </>
             )}
           </Box>
         </Toolbar>
